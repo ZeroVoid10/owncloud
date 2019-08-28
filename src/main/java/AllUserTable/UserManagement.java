@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 public class UserManagement {
 
@@ -33,25 +34,33 @@ public class UserManagement {
             if(result.first()) {
                 if(result.getTimestamp("log_out") == null)
                 	log = "null";
-                else
-                	log = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(result.getTimestamp("log_out"));
+                else {
+                	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                	sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+                	log = sdf.format(result.getTimestamp("log_out"));
+                }
             	User userBean =new User(
                 		result.getInt("UID"), 
                 		result.getString("name"), 
                 		result.getString("password"),
                 		result.getString("mail"),
                 		result.getString("access"),
-                		log);
+                		log);            
+            	statement.close();
                 return userBean;
             }
-            statement.close();
+
+            else {
+            	System.err.println("无此用户");
+            	statement.close();
+            	return null;
+            }
+            	
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-            
+            return null;
         }
-        return null;
     }
     
     public void PrintUserInfos(User user) {
@@ -116,5 +125,31 @@ public class UserManagement {
                 System.err.println("无此用户");
             }
         }catch(SQLException e) {}
+    }
+    
+    public void update_log_out(int UID) {
+    	User user = getUserInfos(UID);
+    	try {
+            if(user != null) {
+            	if(user.log_out == "null") {
+            		String sql = "UPDATE test.allusers SET log_out = now() WHERE UID = '"+UID+"';";
+            		Statement statement =mConnect.createStatement();
+                    statement.executeUpdate(sql);
+                    statement.close();
+            	}
+            	else {
+            		String sql = "UPDATE test.allusers SET log_out = null WHERE UID = '"+UID+"';";
+            		Statement statement =mConnect.createStatement();
+                    statement.executeUpdate(sql);
+                    statement.close();
+            	}
+            }
+            else
+            	System.err.println("无此用户");
+            	
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

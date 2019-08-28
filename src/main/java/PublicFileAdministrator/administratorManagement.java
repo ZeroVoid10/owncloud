@@ -49,10 +49,8 @@ public class administratorManagement {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-            
+            return false;
         }
-        return false;
     }
     
     public void delete_administrator(int UID) {

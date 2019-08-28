@@ -9,6 +9,7 @@ public class test {
 			UserManagement um = new UserManagement(MysqlConnection.getConnection());
 			//um.add_user("James Fu", "james990401", "mi1430954452@126.com", "god");
 			//um.add_user("Annie Li", "annie990910", "idontknow@126.com", "god");
+			um.update_log_out(4);
 			um.PrintUserInfos(um.getUserInfos(4));
 			System.out.println();
 		}
