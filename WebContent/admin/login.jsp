@@ -26,10 +26,10 @@ pageEncoding="UTF-8"%>
                 <div class="container-login">
                     <form>
                         <div class="input-field">
-                            <input type="text" autocomplete="username" placeholder="邮箱地址" autocapitalize="off">
+                            <input type="text" autocomplete="username" placeholder="邮箱地址">
                         </div>
                         <div class="input-field">
-                            <input type="password" autocomplete="current-password" placeholder="密码" autocapitalize="off">
+                            <input type="password" autocomplete="current-password" placeholder="密码">
                         </div>
                         <ul class="error-msg-list"></ul>
                         <button type="submit" class="login-form_submit">登入</button>

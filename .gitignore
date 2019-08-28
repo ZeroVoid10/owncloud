@@ -1,4 +1,8 @@
-*.zip
+# Ignore Gradle project-specific cache directory
+
+
+# Ignore Gradle build output directory
 build
-pro
 lajixiaoxueqi
+pro
+bin
