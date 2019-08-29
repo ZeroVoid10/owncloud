@@ -1,4 +1,4 @@
 {
-    "loginBgPicPath": "img/background.jpg",
-    "logoBgPicPath": "img/pixiv_logo"
+    "loginBackground": "img/login_background.png",
+    "loginLogo": "img/pixiv_logo.jpg"
 }

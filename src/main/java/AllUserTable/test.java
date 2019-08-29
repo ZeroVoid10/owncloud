@@ -3,7 +3,7 @@ package AllUserTable;
 public class test {
 
 	public static void main(String[] args) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		boolean status = new CreateTable(MysqlConnection.getConnection()).create_table();
 		if(status) {
 			UserManagement um = new UserManagement(MysqlConnection.getConnection());

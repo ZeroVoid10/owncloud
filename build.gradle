@@ -9,6 +9,8 @@ plugins {
     id 'war'
     id 'java'
     id 'eclipse-wtp'
+    id 'idea'
+    id 'eclipse'
 }
 
 sourceCompatibility = '1.8'
@@ -21,16 +23,17 @@ repositories {
 }
 
 dependencies {
-    providedCompile 'javax.servlet:javax.servlet-api:3.1.0' 
+    //compile 'javax.servlet:javax.servlet-api:3.1.0' 
     testCompile 'junit:junit:4.12'
 
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20190722'
 
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
-
-    // https://mvnrepository.com/artifact/commons-io/commons-io
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	
 
     // Log4j logger
     // testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.8.0-beta4'

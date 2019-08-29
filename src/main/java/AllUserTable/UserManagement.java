@@ -18,7 +18,7 @@ public class UserManagement {
             Statement statement =mConnect.createStatement();
             String sql ="INSERT INTO test.allusers(name, password, mail, access) VALUES ('"+
                 name+"','"+password+"','"+mail+"','" + group + "');";
-                statement.executeUpdate(sql);//Ö´ÐÐÓï¾ä
+                statement.executeUpdate(sql);//Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
             statement.close();
             System.out.println("user " + name + " created");
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class UserManagement {
     public void PrintUserInfos(User user) {
     	try{
     		if(user == null)
-    			System.err.println("ÎÞ´ËÓÃ»§");
+    			System.err.println("ï¿½Þ´ï¿½ï¿½Ã»ï¿½");
     		System.out.println("UID: " + user.getUID());
     		System.out.println("name: " + user.getName());
     		System.out.println("password: " + user.getPassword());
@@ -77,7 +77,7 @@ public class UserManagement {
             User user =getUserInfos(UID);
             if(user!=null) {
                 /**
-                 * ÅÐ¶Ï´«µÝ¹ýÀ´µÄÀÏÃÜÂëÊÇ·ñÕýÈ·
+                 * ï¿½Ð¶Ï´ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
                  */
                 if(user.getPassword().equals(password)) {
                     Statement statement =mConnect.createStatement();
@@ -86,11 +86,11 @@ public class UserManagement {
                     result= 0;
                 }else {
                     result=1;
-                    System.err.println("ÃÜÂë²»ÕýÈ·,²»ÔÊÐí¸ü¸Ä");
+                    System.err.println("ï¿½ï¿½ï¿½ë²»ï¿½ï¿½È·,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 }
             }else {
                 result=2;
-                System.err.println("ÎÞ´ËÓÃ»§");
+                System.err.println("ï¿½Þ´ï¿½ï¿½Ã»ï¿½");
             }
         }catch(SQLException e) {}
     	return result;
@@ -102,7 +102,7 @@ public class UserManagement {
             User user =getUserInfos(UID);
             if(user!=null) {
                 /**
-                 * ÅÐ¶Ï´«µÝ¹ýÀ´µÄÀÏÃÜÂëÊÇ·ñÕýÈ·
+                 * ï¿½Ð¶Ï´ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
                  */
                 if(user.getPassword().equals(password)) {
                     Statement statement =mConnect.createStatement();
@@ -110,10 +110,10 @@ public class UserManagement {
                     statement.close();
                     System.out.println("user deleted");
                 }else {
-                    System.err.println("ÃÜÂë²»ÕýÈ·,²»ÔÊÐíÉ¾³ý");
+                    System.err.println("ï¿½ï¿½ï¿½ë²»ï¿½ï¿½È·,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½");
                 }
             }else {
-                System.err.println("ÎÞ´ËÓÃ»§");
+                System.err.println("ï¿½Þ´ï¿½ï¿½Ã»ï¿½");
             }
         }catch(SQLException e) {}
     }

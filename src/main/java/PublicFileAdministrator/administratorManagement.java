@@ -17,18 +17,18 @@ public class administratorManagement {
         try {
             if(new UserManagement(mConnect).getUserInfos(UID) !=null) {
 	        	if(Isadministrator(UID))
-	        		System.err.println("UID: " + UID + " ÒÑ¾­ÊÇ¹ÜÀíÔ±ÁË");
+	        		System.err.println("UID: " + UID + " ï¿½Ñ¾ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½Ô±ï¿½ï¿½");
 	        	else {
             	Statement statement =mConnect.createStatement();
 	            String sql ="INSERT INTO test.publicfileadministrator(UID) VALUES ("+
 	                UID+");";
-	            statement.executeUpdate(sql);//Ö´ÐÐÓï¾ä
+	            statement.executeUpdate(sql);//Ö´ï¿½ï¿½ï¿½ï¿½ï¿½
 	            statement.close();
 	            System.out.println("UID: " + UID + " added");
 	        	}
             }
             else
-            	System.err.println("ÎÞ´ËÓÃ»§");
+            	System.err.println("ï¿½Þ´ï¿½ï¿½Ã»ï¿½");
         } catch (SQLException e) {
         	e.printStackTrace();
             }
@@ -65,7 +65,7 @@ public class administratorManagement {
                     System.out.println("UID: " + UID + " administrator deleted");
             }
             else {
-                System.err.println("ÎÞ´Ë¹ÜÀíÔ±");
+                System.err.println("ï¿½Þ´Ë¹ï¿½ï¿½ï¿½Ô±");
             }
         }catch(SQLException e) {}
     }

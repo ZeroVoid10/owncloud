@@ -1,42 +1,80 @@
 package xyz.zerovoid.pan.usr.theme;
 
-import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
+import java.io.FileWriter;
 import org.json.JSONObject;
 import org.json.JSONException;
+import org.apache.commons.io.*;
 
 public class ThemeConf {
 
-    protected String loginBgPicPath;
-    protected String logoPicPath;
+    protected static final String loginBackground = "loginBackground";
+    protected static final String loginLogo = "loginLogo";
+    protected static final String confgPath = "src/main/java/xyz/zerovoid/pan/usr/theme/conf.json";
 
+    protected JSONObject themeConfData;
 
-    public ThemeConf(String loginBgPicPath, String logoPicPath) {
-        this.loginBgPicPath = loginBgPicPath;
-        this.logoPicPath = logoPicPath;
+    protected volatile static ThemeConf instance;
+
+    protected ThemeConf() throws IOException {
+        File confFile = new File(confgPath);
+        String temp = FileUtils.readFileToString(confFile, "UTF-8");
+        this.themeConfData = new JSONObject(temp);
     }
 
-    public ThemeConf() throws IOException {
-        File confFile = new File("conf.json");
-        JSONObject json = new JSONObject(FileUtils.readFileToString(confFile, "UTF-8"));
-        this.loginBgPicPath = json.getString("loginBgPicPath");
-        this.logoPicPath = json.getString("logoPicPath");
+    public static ThemeConf getInstance() throws IOException {
+        if (instance == null) {
+            synchronized (ThemeConf.class) {
+                if (instance == null) {
+                    instance = new ThemeConf();
+                }
+            }
+        }
+        return instance;
     }
 
-    public String getLoginBgPicPath() {
-        return loginBgPicPath;
+    protected void updata() throws JSONException, IOException {
+        FileWriter writer = new FileWriter(confgPath);
+        themeConfData.write(writer);
+        writer.close();
     }
 
-    public void setLoginBgPicPath(String loginBgPicPath) {
-        this.loginBgPicPath = loginBgPicPath;
+    public String getLoginBackground() {
+        return themeConfData.getString(loginBackground);
     }
 
-    public String getLogoPicPath() {
-        return logoPicPath;
+    public boolean setLoginBackground(String path) {
+        themeConfData.put(loginBackground, path);
+        try {
+			updata();
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+            return false;
+		}
+        return true;
     }
 
-    public void setLogoPicPath(String logoPicPath) {
-        this.logoPicPath = logoPicPath;
+    public String getLoginLogo() {
+        return themeConfData.getString(loginLogo);
+    }
+
+    public boolean setLoginLogo(String path) {
+        themeConfData.put(loginLogo, path);
+        try {
+			updata();
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+            return false;
+		}
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException {
+        ThemeConf ins = ThemeConf.getInstance();
+        System.out.println(ins.getLoginLogo());
+        System.out.println(ins.getLoginBackground());
+        ins.setLoginLogo("test.png");
+        System.out.println(ins.getLoginLogo());
     }
 }
