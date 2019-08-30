@@ -14,13 +14,13 @@ body {
     height: 100%;
 }
 
-.owncloud-login-wrap {
+.owncloud-wrap {
     height: 100%;
     margin: 0 auto;
     display: flex;
 }
 
-.login_background {
+.admin-background {
     left: 0;
     right: 0;
     top: 0;
@@ -37,7 +37,9 @@ body {
     background-position-y: 0;
     opacity: 1;
     transition-property: opacity;
-    background-image: url(../img/login_background.jpg);
+    background-image: url(/img/login_background.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 .toggle-button-box {
@@ -47,6 +49,7 @@ body {
     font-size: 12px;
 }
 
+.install-form_submit,
 .login-form_submit,
 .signup-form {
     display: block;
@@ -65,6 +68,10 @@ body {
     text-decoration: none;
 }
 
+.install-form_submit {
+    margin-top: 10px;
+}
+
 .submit-short {
     width: auto;
     padding: 0 12px;
@@ -75,9 +82,21 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30vh;
+    width: 363px;
+}
+
+.install-form {
+    margin-top: 10vh;
+    margin-left: 15vh;
+    margin-right: auto;
+    margin-bottom: 10vh;
+    width: 550px;
+}
+
+.login-form,
+.install-form {
     text-align: center;
     background-color: hsla(0, 0%, 100%, .92);
-    width: 363px;
     padding: 50px 0;
     border-radius: 4px;
 }
@@ -92,7 +111,6 @@ body {
     width: 180px;
     height: 70px;
     background-size: 180px 70px;
-    background-image: url(../img/pixiv_logo.png);
     background-repeat: no-repeat;
 }
 
@@ -106,23 +124,52 @@ body {
     display: block;
 }
 
+
+.prompt, 
+.install-input-field,
 .input-field {
     position: relative;
-    width: 300px;
     padding: 0;
     margin: 0 auto;
     border: 1px solid #dfebf2;
     border-radius: 0;
     border-bottom: none;
+}
+
+.input-field {
+    width: 300px;
     background-color: #fff;
 }
 
+.install-input-field select,
+.install-input-field {
+    width: 400px;
+    background-color: #fff;
+}
+
+.prompt {
+    border:none;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    padding: 0 0 0 10px;
+    width: 400px;
+    display: flex;
+}
+
+.prompt .error-msg {
+    color: red;
+    margin-left: 15px;
+}
+
+.install-input-field:first-child,
 .input-field:first-child {
     border-radius: 4px 4px 0 0;
 }
 
+.install-input-field input,
+.install-input-field select,
 .input-field input {
-    width: 290px;
     height: 40px;
     color: #000;
     display: block;
@@ -132,6 +179,14 @@ body {
     border-radius: 4px;
     padding: 0 0 0 10px;
     line-height: normal;
+}
+
+.input-field input {
+    width: 290px;
+}
+
+.install-input-field input {
+    width: 390px;
 }
 
 input,
@@ -173,6 +228,10 @@ textarea {
     width: 50%;
     float: right;
     text-align: right;
+}
+
+.login-form-nav .right a {
+    text-decoration: none;
 }
 
 .login-form-nav .right::after {

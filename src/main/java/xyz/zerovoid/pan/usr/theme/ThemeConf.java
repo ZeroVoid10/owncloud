@@ -11,7 +11,7 @@ public class ThemeConf {
 
     protected static final String loginBackground = "loginBackground";
     protected static final String loginLogo = "loginLogo";
-    protected static final String confgPath = "src/main/java/xyz/zerovoid/pan/usr/theme/conf.json";
+    protected static final String confgPath = "xyz/zerovoid/pan/usr/theme/conf.json";
 
     protected JSONObject themeConfData;
 
