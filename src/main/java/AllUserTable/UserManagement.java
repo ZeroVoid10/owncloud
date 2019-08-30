@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
 
 public class UserManagement {
 
@@ -33,25 +36,33 @@ public class UserManagement {
             if(result.first()) {
                 if(result.getTimestamp("log_out") == null)
                 	log = "null";
-                else
-                	log = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(result.getTimestamp("log_out"));
+                else {
+                	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                	sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+                	log = sdf.format(result.getTimestamp("log_out"));
+                }
             	User userBean =new User(
                 		result.getInt("UID"), 
                 		result.getString("name"), 
                 		result.getString("password"),
                 		result.getString("mail"),
                 		result.getString("access"),
-                		log);
+                		log);            
+            	statement.close();
                 return userBean;
             }
-            statement.close();
+
+            else {
+            	System.err.println("无此用户");
+            	statement.close();
+            	return null;
+            }
+            	
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }finally {
-            
+            return null;
         }
-        return null;
     }
     
     public void PrintUserInfos(User user) {
@@ -116,5 +127,63 @@ public class UserManagement {
                 System.err.println("锟睫达拷锟矫伙拷");
             }
         }catch(SQLException e) {}
+    }
+    
+    public void update_log_out(int UID) {
+    	User user = getUserInfos(UID);
+    	try {
+            if(user != null) {
+            	if(user.log_out == "null") {
+            		String sql = "UPDATE test.allusers SET log_out = now() WHERE UID = '"+UID+"';";
+            		Statement statement =mConnect.createStatement();
+                    statement.executeUpdate(sql);
+                    statement.close();
+            	}
+            	else {
+            		String sql = "UPDATE test.allusers SET log_out = null WHERE UID = '"+UID+"';";
+            		Statement statement =mConnect.createStatement();
+                    statement.executeUpdate(sql);
+                    statement.close();
+            	}
+            }
+            else
+            	System.err.println("无此用户");
+            	
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    public List<Integer> search_user(String user_name) {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT * FROM test.allusers WHERE name like '%" + user_name + "%';";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
+    }
+    
+    public List<Integer> user_order_by(String keyword, boolean ASC) {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = null;
+    		if(ASC) 
+    			sql = "SELECT UID FROM test.allusers ORDER BY " + keyword + ";";
+    		else
+    			sql = "SELECT UID FROM test.allusers ORDER BY " + keyword + " DESC;";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
     }
 }
