@@ -110,7 +110,7 @@ public class PFileManagement {
         }catch(SQLException e) {}
     }
     
-    public List<Integer> order_by(String keyword, boolean ASC) {
+    public List<Integer> getFileList() {
     	List<Integer> Heshs = new ArrayList<Integer>();
     	try {
     		String sql = "SELECT * FROM test_file." + table_name + ";";
@@ -119,10 +119,19 @@ public class PFileManagement {
             while(result.next()) {
             	Heshs.add(result.getInt("Hesh"));
             }
-            TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());
-            return tfm.order_by(Heshs, keyword, ASC);
+            return Heshs;
     	}catch(SQLException e) {}
     	return Heshs;
+    }
+    
+    public List<Integer> order_by(List<Integer> Heshs, String keyword, boolean ASC) {
+		TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());	
+		return tfm.order_by(Heshs, keyword, ASC);
+    }
+    
+    public List<Integer> search_file(List<Integer> Heshs, String file_name) {
+    	TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());	
+    	return tfm.search_file(Heshs, file_name);
     }
     
 }

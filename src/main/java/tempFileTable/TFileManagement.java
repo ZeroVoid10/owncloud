@@ -62,6 +62,23 @@ public class TFileManagement {
     	return Heshs;
     }
     
+    public List<Integer> search_file(List<Integer> Heshs_before, String file_name) {
+    	add_file(Heshs_before);
+    	List<Integer> Heshs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT Hesh FROM test_file.temptable WHERE name like '%" + file_name + "%';";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	Heshs.add(result.getInt("Hesh"));
+            }
+            delete_table();
+            return Heshs;
+    	}catch(SQLException e) {delete_table();}
+    	delete_table();
+    	return Heshs;
+    }
+    
     public void delete_table() {
     	try{
     		String sql = "DROP TABLE test_file.temptable;";

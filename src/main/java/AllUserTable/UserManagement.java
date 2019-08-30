@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimeZone;
 
 public class UserManagement {
@@ -151,5 +153,37 @@ public class UserManagement {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    public List<Integer> search_user(String user_name) {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT * FROM test.allusers WHERE name like '%" + user_name + "%';";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
+    }
+    
+    public List<Integer> user_order_by(String keyword, boolean ASC) {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = null;
+    		if(ASC) 
+    			sql = "SELECT UID FROM test.allusers ORDER BY " + keyword + ";";
+    		else
+    			sql = "SELECT UID FROM test.allusers ORDER BY " + keyword + " DESC;";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
     }
 }
