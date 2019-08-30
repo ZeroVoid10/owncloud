@@ -37,7 +37,7 @@
                     <div class="login-form-nav">
                         <div class="left"></div>
                         <div class="right">
-                            <a href="">忘记了</a>
+                            <a href="">找回</a>
                         </div>
                     </div>
                 </form>

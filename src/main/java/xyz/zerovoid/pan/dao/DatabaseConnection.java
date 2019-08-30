@@ -21,7 +21,7 @@ public class DatabaseConnection {
 
     private Connection conn;
     
-    public DatabaseConnection() {
+    public DatabaseConnection() throws SQLException {
         String dbType = pref.getDBDriver();
         String dbUrl = "jdbc:" + dbType + "://" + pref.getHost() + ":" + 
                        pref.getPort() + "/" + pref.getDatabaseName() +
@@ -29,20 +29,25 @@ public class DatabaseConnection {
                        pref.getPassword();
         logger.info("Getting database connection...");
         try {
-            if (dbType == "mariadb") {
+            if (dbType.compareTo("mariadb") == 0) {
                 Class.forName(MARIADB_DRIVER);
-            } else if (dbType == "mysql") {
+            } else if (dbType.compareTo("mysql") == 0) {
                 Class.forName(MYSQL_DRIVER);
             }
 			conn = DriverManager.getConnection(dbUrl);
-        } catch (SQLException | ClassNotFoundException e) {
-            logger.error("Cannot get database connection.");
+        } catch (ClassNotFoundException e) {
+            logger.error("Cannot find porper database driver.");
             e.printStackTrace();
         }
     }
 
     public Connection getConnection() {
         return this.conn;
+    }
+
+    public static Connection getNewConnection() throws SQLException {
+        DatabaseConnection dc = new DatabaseConnection();
+        return dc.getConnection();
     }
 
     public void close() throws Exception {
@@ -55,5 +60,4 @@ public class DatabaseConnection {
             }
         }
     }
-    
 }

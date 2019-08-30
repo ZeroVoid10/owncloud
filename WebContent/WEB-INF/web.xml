@@ -24,6 +24,7 @@
   <servlet-mapping>
     <servlet-name>install</servlet-name>
     <url-pattern>/install.jsp</url-pattern>
+    <url-pattern>/install</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -36,6 +37,7 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/login.jsp</url-pattern>
     <url-pattern>/login.html</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -47,6 +49,7 @@
   <servlet-mapping>
     <servlet-name>reinstall</servlet-name>
     <url-pattern>/reinstall.jsp</url-pattern>
+    <url-pattern>/reinstall</url-pattern>
   </servlet-mapping>
 
   <servlet>

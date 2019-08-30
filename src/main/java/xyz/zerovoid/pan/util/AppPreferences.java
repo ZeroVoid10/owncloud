@@ -1,12 +1,20 @@
 package xyz.zerovoid.pan.util;
 
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * 应用配置设置。主要放置安装时相关配置内容。
  * @since 0.1.0
  */
 public class AppPreferences {
+
+    private static final Logger logger = 
+        LoggerFactory.getLogger(AppPreferences.class);
 
     private Preferences pref = Preferences.userNodeForPackage(AppPreferences.class);
 
@@ -21,6 +29,15 @@ public class AppPreferences {
             }
         }
         return instance;
+    }
+
+    public void clear() {
+        try {
+			pref.clear();
+		} catch (BackingStoreException e) {
+            logger.error("clear pref error");
+			e.printStackTrace();
+		}
     }
 
     public void setCredentials(String username, String password) {
