@@ -29,7 +29,7 @@ public class CreateTable {
             statement.close();
             System.out.println("table created");
         } catch (SQLException e) {
-            System.err.println("´´½¨±íÒì³£:"+e.getMessage());
+            System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£:"+e.getMessage());
         }
         return result;
     }
