@@ -6,3 +6,8 @@ build
 lajixiaoxueqi
 pro
 bin
+.gradle
+build/
+
+# Java
+*.class
