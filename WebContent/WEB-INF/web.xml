@@ -3,7 +3,7 @@
   <display-name>owncloud</display-name>
 
   <servlet>
-    <description>defaul page jsp</description>
+    <description>default page jsp</description>
     <servlet-name>index</servlet-name>
     <jsp-file>/WEB-INF/index.jsp</jsp-file>
   </servlet>
