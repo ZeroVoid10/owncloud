@@ -17,18 +17,18 @@ public class administratorManagement {
         try {
             if(new UserManagement(mConnect).getUserInfos(UID) !=null) {
 	        	if(Isadministrator(UID))
-	        		System.err.println("UID: " + UID + " �Ѿ��ǹ���Ա��");
+	        		System.err.println("UID: " + UID + " is already a administrator");
 	        	else {
             	Statement statement =mConnect.createStatement();
 	            String sql ="INSERT INTO test.publicfileadministrator(UID) VALUES ("+
 	                UID+");";
-	            statement.executeUpdate(sql);//ִ�����
+	            statement.executeUpdate(sql);
 	            statement.close();
 	            System.out.println("UID: " + UID + " added");
 	        	}
             }
             else
-            	System.err.println("�޴��û�");
+            	System.err.println("User don't exist");
         } catch (SQLException e) {
         	e.printStackTrace();
             }
@@ -63,7 +63,7 @@ public class administratorManagement {
                     System.out.println("UID: " + UID + " administrator deleted");
             }
             else {
-                System.err.println("�޴˹���Ա");
+                System.err.println("Administrator don't exist");
             }
         }catch(SQLException e) {}
     }

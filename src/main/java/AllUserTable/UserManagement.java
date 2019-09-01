@@ -21,9 +21,9 @@ public class UserManagement {
             Statement statement =mConnect.createStatement();
             String sql ="INSERT INTO test.allusers(name, password, mail, access) VALUES ('"+
                 name+"','"+password+"','"+mail+"','" + group + "');";
-                statement.executeUpdate(sql);//ִ�����
+                statement.executeUpdate(sql);
             statement.close();
-            System.out.println("user " + name + " created");
+            System.out.println("User " + name + " created");
         } catch (SQLException e) {
             }
      }
@@ -53,7 +53,7 @@ public class UserManagement {
             }
 
             else {
-            	System.err.println("�޴��û�");
+            	System.err.println("User don't exist");
             	statement.close();
             	return null;
             }
@@ -68,7 +68,7 @@ public class UserManagement {
     public void PrintUserInfos(User user) {
     	try{
     		if(user == null)
-    			System.err.println("�޴��û�");
+    			System.err.println("User don't exist");
     		System.out.println("UID: " + user.getUID());
     		System.out.println("name: " + user.getName());
     		System.out.println("password: " + user.getPassword());
@@ -87,9 +87,6 @@ public class UserManagement {
             String sql="UPDATE test.allusers SET " + keyword + "= '"+new_info+ "' WHERE UID = '"+UID+"';";
             User user =getUserInfos(UID);
             if(user!=null) {
-                /**
-                 * �жϴ��ݹ������������Ƿ���ȷ
-                 */
                 if(user.getPassword().equals(password)) {
                     Statement statement =mConnect.createStatement();
                     statement.executeUpdate(sql);
@@ -97,11 +94,11 @@ public class UserManagement {
                     result= 0;
                 }else {
                     result=1;
-                    System.err.println("���벻��ȷ,���������");
+                    System.err.println("Wrong password");
                 }
             }else {
                 result=2;
-                System.err.println("�޴��û�");
+                System.err.println("User don't exist");
             }
         }catch(SQLException e) {}
     	return result;
@@ -112,19 +109,16 @@ public class UserManagement {
             String sql="DELETE FROM test.allusers WHERE UID = '"+UID+"';";
             User user =getUserInfos(UID);
             if(user!=null) {
-                /**
-                 * �жϴ��ݹ������������Ƿ���ȷ
-                 */
                 if(user.getPassword().equals(password)) {
                     Statement statement =mConnect.createStatement();
                     statement.executeUpdate(sql);
                     statement.close();
-                    System.out.println("user deleted");
+                    System.out.println("Wrong password");
                 }else {
-                    System.err.println("���벻��ȷ,������ɾ��");
+                    System.err.println("Wrong password");
                 }
             }else {
-                System.err.println("�޴��û�");
+                System.err.println("User don't exist");
             }
         }catch(SQLException e) {}
     }
@@ -147,7 +141,7 @@ public class UserManagement {
             	}
             }
             else
-            	System.err.println("�޴��û�");
+            	System.err.println("User don't exist");
             	
         } catch (SQLException e) {
             // TODO Auto-generated catch block

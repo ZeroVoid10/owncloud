@@ -7,7 +7,6 @@ import java.util.List;
 public class test {
 
 	public static void main(String[] args) {
-		// TODO 自动生成的方法存根
 		boolean status = new CreateTable(MysqlConnection.getConnection()).create_table();
 		//if(status) {
 			//FileManagement fm = new FileManagement(MysqlConnection.getConnection());

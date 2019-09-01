@@ -32,12 +32,12 @@ public class PFileManagement {
         	}
         	Statement statement =mConnect.createStatement();
             String sql ="INSERT INTO test_file." + table_name + "(Hesh) VALUES (" + Hesh + ");";
-            statement.executeUpdate(sql);//执行语句
+            statement.executeUpdate(sql);
             statement.close();
-            System.out.println("file " + name + " added");
+            System.out.println("File " + name + " added");
         } catch (SQLException e) {
             if(e.getMessage().contains("PRIMARY")) 
-                System.err.println("文件 "  + name + " 重复");    
+                System.err.println("File "  + name + " existed");    
             }
      }
     
@@ -51,7 +51,7 @@ public class PFileManagement {
                 return fm.getFile(Hesh);
             }
             else {
-            	System.err.println("无此文件");
+            	System.err.println("File don't exist");
             	statement.close();
             	return null;
             }
@@ -66,7 +66,7 @@ public class PFileManagement {
     public void PrintFileInfos(File file) {
     	try{
     		if(file == null)
-    			System.err.println("无此文件");
+    			System.err.println("File don't exist");
     		System.out.println("Hesh: " + file.getHesh());
     		System.out.println("name: " + file.getName());
     		System.out.println("kind: " + file.getKind());
@@ -90,7 +90,7 @@ public class PFileManagement {
             return result;
         }else {
         	result=2;
-            System.err.println("无此文件");
+            System.err.println("File don't exist");
             return result;
         }
     }
@@ -103,9 +103,9 @@ public class PFileManagement {
             	Statement statement =mConnect.createStatement();
             	statement.executeUpdate(sql);
             	statement.close();
-            	System.out.println("file Hesh: " + Hesh + " deleted");
+            	System.out.println("File Hesh: " + Hesh + " deleted");
             }else {
-                System.err.println("无此文件");
+                System.err.println("File don't exist");
             }
         }catch(SQLException e) {}
     }

@@ -26,9 +26,9 @@ public class CreateTable {
             statement.execute(sql);
             result = true;
             statement.close();
-            System.out.println("table created");
+            System.out.println("Table created");
         } catch (SQLException e) {
-            System.err.println("�������쳣:"+e.getMessage());
+            System.err.println("Failed to create table:"+e.getMessage());
         }
         return result;
     }
