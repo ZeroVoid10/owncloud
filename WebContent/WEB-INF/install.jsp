@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% application.setAttribute("appStatus", "installed"); %>
 <!DOCTYPE html>
 <html>
 
@@ -71,7 +70,7 @@
                     <div class="error-msg" id="username"></div>
                 </div>
                 <div class="install-input-field">
-                    <input type="text" name="db_username" placeholder="Database user name" value="zerovoid">
+                    <input type="text" name="db_username" placeholder="Database user name" value="pan">
                 </div>
 
                 <div class="prompt">

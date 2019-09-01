@@ -19,18 +19,18 @@ public class PUserManagement {
         try {
             if(new UserManagement(mConnect).getUserInfos(UID) !=null) {
 	        	if(IsPUser(UID))
-	        		System.err.println("UID: " + UID + " 已经是项目成员了");
+	        		System.err.println("UID: " + UID + " is already a project member");
 	        	else {
             	Statement statement =mConnect.createStatement();
 	            String sql ="INSERT INTO test." + project_name + "(UID, access) VALUES ("+
 	                UID+",'" + access + "');";
-	            statement.executeUpdate(sql);//执行语句
+	            statement.executeUpdate(sql);
 	            statement.close();
 	            System.out.println("UID: " + UID + " added");
 	        	}
             }
             else
-            	System.err.println("无此用户");
+            	System.err.println("User don't exist");
         } catch (SQLException e) {
         	e.printStackTrace();
             }
@@ -67,7 +67,7 @@ public class PUserManagement {
                     System.out.println("UID: " + UID + " PUser deleted");
             }
             else {
-                System.err.println("无此项目成员");
+                System.err.println(UID + " is not a project member");
             }
         }catch(SQLException e) {}
     }
@@ -81,7 +81,7 @@ public class PUserManagement {
                     System.out.println("UID: " + UID + " PUser's access is now " + new_access);
             }
             else {
-                System.err.println("无此项目成员");
+                System.err.println(UID + " is not a project member");
             }
         }catch(SQLException e) {}
     }
@@ -96,7 +96,7 @@ public class PUserManagement {
             	statement.close();
             }
             else {
-                System.err.println("无此项目成员");
+                System.err.println(UID + " is not a project member");
             }
             return PUser_access;
         }catch(SQLException e) {return null;}

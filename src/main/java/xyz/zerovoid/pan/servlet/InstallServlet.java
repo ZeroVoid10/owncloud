@@ -2,9 +2,9 @@ package xyz.zerovoid.pan.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import xyz.zerovoid.pan.util.*;
 import xyz.zerovoid.pan.dao.DatabaseConnection;
+import xyz.zerovoid.pan.install.InitTable;
 
 /**
  * Servlet implementation class InstallServlet
@@ -42,6 +43,11 @@ public class InstallServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
+        ServletContext app = this.getServletContext();
+        if (app.getAttribute("appStatus") != null) {
+            //非法重新安装。
+            return;
+        }
         
         PrintWriter printer = response.getWriter();
         response.setContentType("application/json");
@@ -55,6 +61,7 @@ public class InstallServlet extends HttpServlet {
         String username = request.getParameter("db_username");
         String db_password = request.getParameter("db_password");
 
+        //TODO: registe
         String root_password = request.getParameter("root_password");
 
         AppPreferences pref = AppPreferences.getInstance();
@@ -66,8 +73,13 @@ public class InstallServlet extends HttpServlet {
         pref.setDabaseName(db_name);
 
         DatabaseConnection dc = null;
+        InitTable it;
         try {
             dc = new DatabaseConnection();
+            it = new InitTable();
+            if (it.init()) {
+                app.setAttribute("appStatus", "installed");
+            }
         } catch(SQLException e) {
             json.put("connection", false);
             pref.clear();
@@ -76,10 +88,10 @@ public class InstallServlet extends HttpServlet {
             try {
 				dc.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
+
         printer.print(json.toString());
         printer.flush();
         printer.close();

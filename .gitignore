@@ -3,7 +3,18 @@
 
 # Ignore Gradle build output directory
 build
+.gradle
+gradlew
+gradlew.bat
+
+# Java
+*.class
+*.jar
+*.war
+
+# other
 lajixiaoxueqi
 pro
 bin
-/.gradle/
+.vscode
+
