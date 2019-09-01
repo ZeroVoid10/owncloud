@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 public class DAOFactory {
 
-    public static UserManager getUserManager() throws SQLException {
-        return new UserManager();
+    public static UserDao getUserDAO() throws SQLException {
+        return new UserDao();
     }
 
 }

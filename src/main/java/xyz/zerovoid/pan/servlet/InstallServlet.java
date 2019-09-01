@@ -3,6 +3,7 @@ package xyz.zerovoid.pan.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -54,6 +55,8 @@ public class InstallServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         json.put("connection", true);
 
+        Map<String, String[]> map = request.getParameterMap();
+
         String dbType = request.getParameter("db_type");
         String host = request.getParameter("db_host");
         String port = request.getParameter("db_port");
@@ -78,7 +81,8 @@ public class InstallServlet extends HttpServlet {
             dc = new DatabaseConnection();
             it = new InitTable();
             if (it.init()) {
-                app.setAttribute("appStatus", "installed");
+                // 方便调试安装过程
+                //app.setAttribute("appStatus", "installed");
             }
         } catch(SQLException e) {
             json.put("connection", false);

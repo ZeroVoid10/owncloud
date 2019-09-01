@@ -7,13 +7,13 @@ import java.sql.SQLException;
 
 import xyz.zerovoid.pan.vo.User;
 
-public class UserManager {
+public class UserDao {
     
     private DatabaseConnection dbc = null;
     private Connection conn = null;
     private PreparedStatement pstmt = null;
 
-    public UserManager() throws SQLException {
+    public UserDao() throws SQLException {
         dbc = new DatabaseConnection();
         conn = dbc.getConnection();
     }

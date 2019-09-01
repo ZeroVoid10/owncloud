@@ -83,18 +83,18 @@
 
                 <div class="prompt">
                     <div>管理员用户邮箱</div>
-                    <div class="error-msg" id="root_mail"></div>
+                    <div class="error-msg" id="mail"></div>
                 </div>
                 <div class="install-input-field">
-                    <input type="text" name="root_mail" placeholder="root password" value="2@a.com">
+                    <input type="text" name="mail" placeholder="root password" value="2@a.com">
                 </div>
 
                 <div class="prompt">
                     <div>管理员用户密码</div>
-                    <div class="error-msg" id="root_password"></div>
+                    <div class="error-msg" id="password"></div>
                 </div>
                 <div class="install-input-field">
-                    <input type="password" name="root_password" placeholder="root password">
+                    <input type="password" name="password" placeholder="root password">
                 </div>
 
                 <ul class="error-msg-list" id="install-msg"></ul>

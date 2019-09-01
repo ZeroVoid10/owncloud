@@ -10,7 +10,7 @@ import xyz.zerovoid.pan.dao.ColInfo;
 import xyz.zerovoid.pan.dao.DAOFactory;
 import xyz.zerovoid.pan.dao.DatabaseConnection;
 import xyz.zerovoid.pan.dao.TableInfo;
-import xyz.zerovoid.pan.dao.UserManager;
+import xyz.zerovoid.pan.admin.UserManager;
 
 public class InitTable {
     
@@ -34,7 +34,7 @@ public class InitTable {
         table.addColInfo(col);
         table.addColInfo(new ColInfo("mail", "varchar", 255, false, true));
         table.addColInfo(new ColInfo("password", "varchar", 255, false, true));
-        table.addColInfo(new ColInfo("name", "varchar", 255, false, false));
+        table.addColInfo(new ColInfo("username", "varchar", 255, false, false));
         col = new ColInfo("groupname", "varchar", 255, false, false);
         col.setDefaultValue("guest");
         table.addColInfo(col);

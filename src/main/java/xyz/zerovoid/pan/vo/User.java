@@ -1,6 +1,7 @@
 package xyz.zerovoid.pan.vo;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * user表的vo类
@@ -9,9 +10,9 @@ import java.util.Date;
 public class User {
 
 	private int UID;
-	private String name;
-	private String password;
 	private String mail;
+	private String password;
+	private String username;
 	private String group;
 	private Date logOutTime;
 
@@ -24,12 +25,12 @@ public class User {
         return this;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
 	public User setName(String name) {
-		this.name = name;
+		this.username = name;
         return this;
 	}
 
@@ -74,6 +75,14 @@ public class User {
         this.password = password;
     }
 
+    public User(Map<String, String[]> map) {
+        this.mail = map.get("mail")[0];
+        this.password = map.get("password")[0];
+        if (map.containsKey("username")) {
+            this.username = map.get("username")[0];
+        }
+    }
+
     private User() {
         super();
     }
@@ -81,5 +90,5 @@ public class User {
     public static User getNewUser() {
         return new User();
     }
-	
+
 }
