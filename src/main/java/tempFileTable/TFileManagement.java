@@ -34,7 +34,7 @@ public class TFileManagement {
             	Statement statement =mConnect.createStatement();
             	String sql ="INSERT INTO test_file.temptable(Hesh, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + i + ",'"+
                         name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",'" + upload_time + "');";
-                statement.executeUpdate(sql);//Ö´ÐÐÓï¾ä
+                statement.executeUpdate(sql);
                 statement.close();
             }
         } catch (SQLException e) {
@@ -83,7 +83,7 @@ public class TFileManagement {
     	try{
     		String sql = "DROP TABLE test_file.temptable;";
         	Statement statement = mConnect.createStatement();
-            statement.executeUpdate(sql);//Ö´ÐÐÓï¾ä
+            statement.executeUpdate(sql);
             statement.close();
     	}catch(SQLException e) {}
     	

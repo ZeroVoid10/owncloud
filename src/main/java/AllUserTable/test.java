@@ -6,7 +6,6 @@ import java.util.List;
 public class test {
 
 	public static void main(String[] args) {
-		// TODO �Զ����ɵķ������
 		boolean status = new CreateTable(MysqlConnection.getConnection()).create_table();
 		if(status) {
 			UserManagement um = new UserManagement(MysqlConnection.getConnection());
