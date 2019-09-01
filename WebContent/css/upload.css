@@ -1,0 +1,45 @@
+a {color: #696B83;TEXT-DECORATION: none}
+a:active {background: #AFC1DC}
+.downloadbutton{
+    height: 18px;
+    line-height: 18px;
+    padding: 0 11px;
+    background: rgb(120, 127, 162);
+    border: 1px #E5E7EA solid;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 12px;
+    outline: none;
+ }
+input {color: #696B83;TEXT-DECORATION: none}
+input:active {background: #AFC1DC}
+.uploadbutton{
+    height: 20px;
+    line-height: 18px;
+    padding: 0 11px;
+    background: rgb(120, 127, 162);
+    border: 1px #E5E7EA solid;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 12px;
+    outline: none;
+ }
+ table.fileTable{
+    width:100%;
+    
+ }
+ th{
+    height:30px;
+ }
+ th.fileName{width:30%;}
+ th.fileSize{width:20%;}
+ th.fileDate{width:30%;}
+ tr{
+    height:25px;
+ }
+ input {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}

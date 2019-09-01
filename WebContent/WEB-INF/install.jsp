@@ -7,12 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <title>协同办公资源管理子系统安装</title>
-    <link rel="stylesheet" type="text/css" href="/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-    <script src="/js/install.js"></script>
-    <link rel="shortcut icon", href="/img/logo.png")>
+    <script src="js/install.js"></script>
+    <link rel="shortcut icon", href="img/logo.png")>
 </head>
 
 <body>
