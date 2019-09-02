@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import xyz.zerovoid.pan.util.*;
-import xyz.zerovoid.pan.dao.DatabaseConnection;
-import xyz.zerovoid.pan.install.InitTable;
+import xyz.zerovoid.pan.admin.SystemManager;
 
 /**
  * Servlet implementation class InstallServlet
  */
 public class InstallServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+    private static final Logger logger = 
+        LoggerFactory.getLogger(InstallServlet.class);
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,59 +48,31 @@ public class InstallServlet extends HttpServlet {
 		//doGet(request, response);
         ServletContext app = this.getServletContext();
         if (app.getAttribute("appStatus") != null) {
-            //非法重新安装。
+            logger.error("Inlegal reinstall!");
             return;
         }
         
         PrintWriter printer = response.getWriter();
         response.setContentType("application/json");
         JSONObject json = new JSONObject();
-        json.put("connection", true);
 
         Map<String, String[]> map = request.getParameterMap();
 
-        String dbType = request.getParameter("db_type");
-        String host = request.getParameter("db_host");
-        String port = request.getParameter("db_port");
-        String db_name = request.getParameter("db_name");
-        String username = request.getParameter("db_username");
-        String db_password = request.getParameter("db_password");
-
-        //TODO: registe
-        String root_password = request.getParameter("root_password");
-
-        AppPreferences pref = AppPreferences.getInstance();
-
-        pref.setDBDriver(dbType);
-        pref.setHost(host);
-        pref.setPort(port);
-        pref.setCredentials(username, db_password);
-        pref.setDabaseName(db_name);
-
-        DatabaseConnection dc = null;
-        InitTable it;
+        SystemManager manager = null;
         try {
-            dc = new DatabaseConnection();
-            it = new InitTable();
-            if (it.init()) {
-                // 方便调试安装过程
-                //app.setAttribute("appStatus", "installed");
-            }
-        } catch(SQLException e) {
-            json.put("connection", false);
-            pref.clear();
-            e.printStackTrace();
-        } finally {
-            try {
-				dc.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-
+            manager = new SystemManager(map);
+			manager.install();
+		} catch (SQLException e) {
+            // 方便调试安装过程
+            //app.setAttribute("appStatus", "installed");
+            logger.error("Install failed.");
+            json.put("installed", false);
+			e.printStackTrace();
+        } 
+        json.put("installed", true);
         printer.print(json.toString());
         printer.flush();
         printer.close();
-	}
+}
 
 }

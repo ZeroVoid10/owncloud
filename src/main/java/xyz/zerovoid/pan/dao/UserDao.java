@@ -20,11 +20,11 @@ public class UserDao {
 
     public boolean doInsert(User user) throws SQLException {
         boolean flag = false;
-        String sql = "insert into user (mail, password, name, groupname) values(?,?,?,?)";
+        String sql = "insert into user (mail, password, username, groupname) values(?,?,?,?)";
         this.pstmt = conn.prepareStatement(sql);
         this.pstmt.setString(1, user.getMail());
         this.pstmt.setString(2, user.getPassword());
-        this.pstmt.setString(3, user.getName());
+        this.pstmt.setString(3, user.getUsername());
         this.pstmt.setString(4, user.getGroup());
         if (this.pstmt.executeUpdate() > 0) {
             flag = true;

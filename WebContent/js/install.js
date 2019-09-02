@@ -3,7 +3,7 @@ $(document).ready(function(){
         e.preventDefault();
         $("#install-msg").html("");
         var info = checkInstallForm();
-        var prompt = Array("type", "host", "port", "db_name", "username", "db_password", "root_mail", "root_password");
+        var prompt = Array("type", "host", "port", "db_name", "username", "db_password", "mail", "password");
         if (info.success == true) {
             $.ajax({
                 type: 'POST',
@@ -14,10 +14,10 @@ $(document).ready(function(){
                         var key = prompt[index];
                         $("#"+key).html("");
                     }
-                    if (res.connection == true) {
+                    if (res.installed == true) {
                         toLogin();
                     } else {
-                        conFailed();
+                        installFailed();
                     }
                 },
                 error: function() {
@@ -45,8 +45,8 @@ function checkInstallForm() {
     var db_name = $("[name='db_name']").val();
     var username = $("[name='db_username']").val();
     var db_password = $("[name='db_password']").val();
-    var root_mail = $("[name='root_mail']").val();
-    var root_password = $("[name='root_password']").val();
+    var mail = $("[name='mail']").val();
+    var password = $("[name='password']").val();
     var info = new Object();
     if (type == '') {
         info.type = "请选择数据库类型";
@@ -63,11 +63,11 @@ function checkInstallForm() {
     if (username == '') {
         info.username = "请输入数据库用户名";
     }
-    if (!validMail(root_mail)) {
-        info.root_mail = "非法邮箱，请正确输入邮箱";
+    if (!validMail(mail)) {
+        info.mail = "非法邮箱，请正确输入邮箱";
     }
-    if (root_password == '') {
-        info.root_password = "root密码不能为空";
+    if (password == '') {
+        info.password = "root密码不能为空";
     }
 
     if (Object.keys(info).length == 0) {
@@ -101,6 +101,6 @@ function toLogin() {
     });
 }
 
-function conFailed() {
-    $("#install-msg").html("无法连接到数据库，请检查填写信息及数据库配置");
+function installFailed() {
+    $("#install-msg").html("安装失败，请检查填写信息及数据库配置");
 }

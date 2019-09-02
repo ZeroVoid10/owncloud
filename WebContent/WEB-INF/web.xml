@@ -18,7 +18,7 @@
   <servlet>
     <description>install page jsp</description>
     <servlet-name>install</servlet-name>
-    <jsp-file>/WEB-INF/install.jsp</jsp-file>
+    <jsp-file>/WEB-INF/admin/install.jsp</jsp-file>
   </servlet>
 
   <servlet-mapping>
@@ -66,7 +66,7 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>WEB-INF/index.jsp</welcome-file>
+    <welcome-file>/WEB-INF/index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>

@@ -81,6 +81,9 @@ public class User {
         if (map.containsKey("username")) {
             this.username = map.get("username")[0];
         }
+        if (map.containsKey("group")) {
+            this.group = map.get("group")[0];
+        }
     }
 
     private User() {
