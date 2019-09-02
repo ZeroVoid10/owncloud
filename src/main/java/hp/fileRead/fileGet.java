@@ -1,5 +1,9 @@
 package hp.fileRead;
 
+/**
+ * 鏂囦欢璇诲彇绫伙紝鍒楄〃瀛樺偍
+ */
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,24 +45,26 @@ public class fileGet {
 	}
 	
 	public static void getFileName() {
-		List<File> wjList = new ArrayList<File>();//新建一个文件集合
+		List<File> wjList = new ArrayList<File>();
 		List<String> namelist = new ArrayList<String>();
 		List<String> sizelist = new ArrayList<String>();
 		List<String> datelist = new ArrayList<String>();
 		List<String> pathlist = new ArrayList<String>();
 		for (int i = 0; i < fileList.length; i++) {
-		   if (fileList[i].isFile()) {//判断是否为文件
+		   if (fileList[i].isFile()) {
 		        wjList.add(fileList[i]);
 		        String name = fileList[i].getName();
 		        String path = fileList[i].getPath();
 		        String Size = null;
 		        long fileSize = fileList[i].length();
-		        if(fileSize<10240) {
+		        if(fileSize<1024) {
 		        	Size = fileSize+"B";
-		        }else if(fileSize<(10240*1024)) {
-		        	Size = fileSize/1024+"KB";
+		        }else if(fileSize<(1024*1024)) {
+		        	double doublefile = (double)fileSize/1024;		        	
+		        	Size = String.format("%.2f", doublefile) +"KB";
 		        }else {
-		        	Size = fileSize/1024/1024+"MB";
+		        	double doublefile = (double)fileSize/1024/1024;
+		        	Size = String.format("%.2f", doublefile) +"MB";
 		        }
 		        Calendar cal = Calendar.getInstance();  
 		        long time = fileList[i].lastModified();  
