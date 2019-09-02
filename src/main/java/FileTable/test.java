@@ -2,6 +2,7 @@ package FileTable;
 
 import java.util.ArrayList;
 import java.util.List;
+import AllFileTable.File;
 
 public class test {
 
@@ -15,10 +16,10 @@ public class test {
 //			pfm.PrintFileInfos(pfm.getFile(1));
 //			pfm.update_file_info(1, "kind", "dll");
 //			pfm.PrintFileInfos(pfm.getFile(1));
-			List<Integer> Heshs = new ArrayList<Integer>();
-			Heshs = pfm.order_by("name", true);
-			for(Integer i : Heshs) {
-				pfm.PrintFileInfos(pfm.getFile(i));
+			List<File> Files = new ArrayList<File>();
+			Files = pfm.search_file("name", "b");
+			for(File i : Files) {
+				pfm.PrintFileInfos(i);
 				System.out.println();
 			}
 //			pfm.delete_file(1);

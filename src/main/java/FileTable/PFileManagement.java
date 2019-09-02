@@ -134,8 +134,8 @@ public class PFileManagement {
     	return Heshs;
     }
     
-    public List<Integer> order_by(String keyword, boolean ASC) {
-    	List<Integer> Heshs = new ArrayList<Integer>();
+    public List<File> order_by(String keyword, boolean ASC) {
+    	List<File> files = new ArrayList<File>();
     	try {
     		String sql = null;
     		if(ASC) 
@@ -145,27 +145,27 @@ public class PFileManagement {
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	Heshs.add(result.getInt("Hesh"));
+            	files.add(getFile(result.getInt("Hesh")));
             }
-            return Heshs;
+            return files;
     	}catch(SQLException e) {}
-    	return Heshs;
+    	return files;
     }
     
-    public List<Integer> search_file(String keyword, String input) {
-    	List<Integer> Heshs = new ArrayList<Integer>();
+    public List<File> search_file(String keyword, String input) {
+    	List<File> files = new ArrayList<File>();
     	try {
     		String sql = "SELECT Hesh FROM test_file." + table_name + " WHERE " + keyword + " like '%" + input + "%';";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	Heshs.add(result.getInt("Hesh"));
+            	files.add(getFile(result.getInt("Hesh")));
             }
-            if(Heshs.size() == 0)
+            if(files.size() == 0)
             	System.out.println("No result");
-            return Heshs;
+            return files;
     	}catch(SQLException e) {}
-    	return Heshs;
+    	return files;
     }
     
 }
