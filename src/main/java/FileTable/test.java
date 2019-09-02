@@ -10,12 +10,12 @@ public class test {
 		boolean status = new CreateTable(MysqlConnection.getConnection(), "public").create_table();
 		if(status) {
 			PFileManagement pfm = new PFileManagement(MysqlConnection.getConnection(), "public");
-//			pfm.add_file(2,"bca", "jpg", "C:\\adsadasvx", "500", 2);
+//			pfm.add_file(2,"bca", "jpg", "C:\\adsadasvx", "500", 1);
 //			pfm.add_file(3,"abc", "pptx", "E:\\fasgasg", "50000", 4);
 //			pfm.add_file(1,"cba", "exe", "D:\\avx", "50000000", 1);
-//			pfm.PrintFileInfos(pfm.getFile(1));
-//			pfm.update_file_info(1, "kind", "dll");
-//			pfm.PrintFileInfos(pfm.getFile(1));
+//			pfm.PrintFileInfos(pfm.getFile(2));
+//			pfm.update_file_info(2, "kind", "dll");
+//			pfm.PrintFileInfos(pfm.getFile(2));
 			List<File> Files = new ArrayList<File>();
 			Files = pfm.search_file("name", "b");
 			for(File i : Files) {

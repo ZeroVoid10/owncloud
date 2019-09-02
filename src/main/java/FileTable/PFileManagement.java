@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
+
 import AllFileTable.FileManagement;
 import AllFileTable.MysqlConnection;
 import AllFileTable.File;
@@ -23,17 +26,15 @@ public class PFileManagement {
     }
     
     public void add_file(int Hesh, String name, String kind, String dir, String size, int uploader_UID) {
-        try {
+    	try {
         	FileManagement fm = new FileManagement(MysqlConnection.getConnection());
         	File file = fm.getFile(Hesh);
         	if(file == null) {
         		fm.add_file(Hesh, name, kind, dir, size, uploader_UID);
         	}
-        	file = fm.getFile(Hesh);
-        	String upload_time = file.getUpload_time();
         	Statement statement =mConnect.createStatement();
             String sql ="INSERT INTO test_file." + table_name + "(Hesh, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hesh + ",'"+
-            		name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",'" + upload_time + "');";
+            		name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",now());";
             statement.executeUpdate(sql);
             statement.close();
             System.out.println("File " + name + " added");
@@ -45,12 +46,24 @@ public class PFileManagement {
     
     public File getFile(int Hesh) {
         String sql ="SELECT * FROM test_file." + table_name +" WHERE Hesh = " + Hesh + ";";
+        String log;
         try {
             Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             if(result.first()) {
-            	FileManagement fm = new FileManagement(MysqlConnection.getConnection());
-                return fm.getFile(Hesh);
+            	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+                log = sdf.format(result.getTimestamp("upload_time"));
+                File file =new File(
+                		result.getInt("Hesh"), 
+                		result.getString("name"), 
+                		result.getString("kind"),
+                		result.getString("dir"),
+                		result.getString("size"),
+                		result.getInt("uploader_UID"),
+                		log);            
+            	statement.close();
+                return file;
             }
             else {
             	System.err.println("File don't exist");
@@ -87,8 +100,6 @@ public class PFileManagement {
         File file =getFile(Hesh);
         try {
         	if(file != null) {
-	            FileManagement fm = new FileManagement(MysqlConnection.getConnection());
-	            fm.update_file_info(Hesh, keyword, new_info);
 	            String sql="UPDATE test_file." + table_name +" SET " + keyword + "= '"+new_info+ "' WHERE Hesh = '"+Hesh+"';";
 	            Statement statement =mConnect.createStatement();
 	            statement.executeUpdate(sql);
