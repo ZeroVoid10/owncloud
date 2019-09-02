@@ -17,10 +17,10 @@ public class FileManagement {
         this.mConnect = connection;
     }
     
-    public void add_file(int Hesh, String name, String kind, String dir, String size, int uploader_UID) {
+    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID) {
         try {
             Statement statement =mConnect.createStatement();
-            String sql ="INSERT INTO test_file.allfiles(Hesh, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hesh + ",'"+
+            String sql ="INSERT INTO test_file.allfiles(Hash, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hash + ",'"+
                 name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",now()" + ");";
             statement.executeUpdate(sql);
             statement.close();
@@ -31,8 +31,8 @@ public class FileManagement {
         }
      }
     
-    public File getFile(int Hesh) {
-        String sql ="SELECT * FROM test_file.allfiles WHERE Hesh = " + Hesh + ";";
+    public File getFile(int Hash) {
+        String sql ="SELECT * FROM test_file.allfiles WHERE Hash = " + Hash + ";";
         String log;
         try {
             Statement statement =mConnect.createStatement();
@@ -42,7 +42,7 @@ public class FileManagement {
                 sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
                 log = sdf.format(result.getTimestamp("upload_time"));
                 File file =new File(
-                		result.getInt("Hesh"), 
+                		result.getInt("Hash"), 
                 		result.getString("name"), 
                 		result.getString("kind"),
                 		result.getString("dir"),
@@ -70,7 +70,7 @@ public class FileManagement {
     	try{
     		if(file == null)
     			System.err.println("File don't exist");
-    		System.out.println("Hesh: " + file.getHesh());
+    		System.out.println("Hash: " + file.getHash());
     		System.out.println("name: " + file.getName());
     		System.out.println("kind: " + file.getKind());
 	    	System.out.println("dir: " + file.getDir());
@@ -83,11 +83,11 @@ public class FileManagement {
     		
     }
     
-    public int update_file_info(int Hesh, String keyword, String new_info) {
+    public int update_file_info(int Hash, String keyword, String new_info) {
     	int result =-1;
     	try {
-            String sql="UPDATE test_file.allfiles SET " + keyword + "= '"+new_info+ "' WHERE Hesh = '"+Hesh+"';";
-            File file =getFile(Hesh);
+            String sql="UPDATE test_file.allfiles SET " + keyword + "= '"+new_info+ "' WHERE Hash = '"+Hash+"';";
+            File file =getFile(Hash);
             if(file != null) {
             	Statement statement =mConnect.createStatement();
             	statement.executeUpdate(sql);
@@ -101,15 +101,15 @@ public class FileManagement {
     	return result;
     }
     
-    public void delete_file(int Hesh) {
+    public void delete_file(int Hash) {
     	try {
-            String sql="DELETE FROM test_file.allfiles WHERE Hesh = '"+Hesh+"';";
-            File file =getFile(Hesh);
+            String sql="DELETE FROM test_file.allfiles WHERE Hash = '"+Hash+"';";
+            File file =getFile(Hash);
             if(file != null) {
             	Statement statement =mConnect.createStatement();
             	statement.executeUpdate(sql);
             	statement.close();
-            	System.out.println("File Hesh: " + Hesh + " deleted");
+            	System.out.println("File Hash: " + Hash + " deleted");
             }else {
                 System.err.println("File don't exist");
             }
@@ -121,13 +121,13 @@ public class FileManagement {
     	try {
     		String sql = null;
     		if(ASC) 
-    			sql = "SELECT Hesh FROM test_file.allfiles ORDER BY " + keyword + ";";
+    			sql = "SELECT Hash FROM test_file.allfiles ORDER BY " + keyword + ";";
     		else
-    			sql = "SELECT Hesh FROM test_file.allfiles ORDER BY " + keyword + " DESC;";
+    			sql = "SELECT Hash FROM test_file.allfiles ORDER BY " + keyword + " DESC;";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	files.add(getFile(result.getInt("Hesh")));
+            	files.add(getFile(result.getInt("Hash")));
             }
             return files;
     	}catch(SQLException e) {}
@@ -137,11 +137,11 @@ public class FileManagement {
     public List<File> search_file(String keyword, String input) {
     	List<File> files = new ArrayList<File>();
     	try {
-    		String sql = "SELECT Hesh FROM test_file.allfiles WHERE " + keyword + " like '%" + input + "%';";
+    		String sql = "SELECT Hash FROM test_file.allfiles WHERE " + keyword + " like '%" + input + "%';";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	files.add(getFile(result.getInt("Hesh")));
+            	files.add(getFile(result.getInt("Hash")));
             }
             if(files.size() == 0)
             	System.out.println("No result");

@@ -16,7 +16,7 @@ public class CreateTable {
     }
     public boolean create_table() {
     	String sql="CREATE TABLE IF NOT EXISTS temptable" + String.valueOf(UID) + "(" +
-    			"Hesh int(8) PRIMARY KEY NOT NULL,"+
+    			"Hash int(8) PRIMARY KEY NOT NULL,"+
                 "name varchar(255) NOT NULL," + 
                 "kind varchar(255) NOT NULL," + 
                 "dir varchar(255) NOT NULL," +

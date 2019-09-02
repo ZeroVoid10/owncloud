@@ -20,12 +20,12 @@ public class TFileManagement {
         this.UID = UID;
     }
     
-    public void add_file(List<Integer> Heshs) {
+    public void add_file(List<Integer> Hashs) {
         try {
         	@SuppressWarnings("unused")
 			boolean status = new CreateTable(MysqlConnection.getConnection(), UID).create_table();
         	FileManagement fm = new FileManagement(MysqlConnection.getConnection());
-        	for(Integer i : Heshs) {
+        	for(Integer i : Hashs) {
             	File file = fm.getFile(i);
             	String name = file.getName();
             	String kind = file.getKind();
@@ -34,7 +34,7 @@ public class TFileManagement {
             	int uploader_UID = file.getUploader_UID();
             	String upload_time = file.getUpload_time();
             	Statement statement =mConnect.createStatement();
-            	String sql ="INSERT INTO test_file.temptable" + String.valueOf(UID) + "(Hesh, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + i + ",'"+
+            	String sql ="INSERT INTO test_file.temptable" + String.valueOf(UID) + "(Hash, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + i + ",'"+
                         name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",'" + upload_time + "');";
                 statement.executeUpdate(sql);
                 statement.close();
@@ -43,42 +43,42 @@ public class TFileManagement {
         }
      }
     
-    public List<Integer> order_by(List<Integer> Heshs_before, String keyword, boolean ASC) {
-    	add_file(Heshs_before);
-    	List<Integer> Heshs = new ArrayList<Integer>();
+    public List<Integer> order_by(List<Integer> Hashs_before, String keyword, boolean ASC) {
+    	add_file(Hashs_before);
+    	List<Integer> Hashs = new ArrayList<Integer>();
     	try {
     		String sql = null;
     		if(ASC) 
-    			sql = "SELECT Hesh FROM test_file.temptable" + String.valueOf(UID) + " ORDER BY " + keyword + ";";
+    			sql = "SELECT Hash FROM test_file.temptable" + String.valueOf(UID) + " ORDER BY " + keyword + ";";
     		else
-    			sql = "SELECT Hesh FROM test_file.temptable" + String.valueOf(UID) + " ORDER BY " + keyword + " DESC;";
+    			sql = "SELECT Hash FROM test_file.temptable" + String.valueOf(UID) + " ORDER BY " + keyword + " DESC;";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	Heshs.add(result.getInt("Hesh"));
+            	Hashs.add(result.getInt("Hash"));
             }
             delete_table();
-            return Heshs;
+            return Hashs;
     	}catch(SQLException e) {delete_table();}
     	delete_table();
-    	return Heshs;
+    	return Hashs;
     }
     
-    public List<Integer> search_file(List<Integer> Heshs_before, String keyword ,String file_name) {
-    	add_file(Heshs_before);
-    	List<Integer> Heshs = new ArrayList<Integer>();
+    public List<Integer> search_file(List<Integer> Hashs_before, String keyword ,String file_name) {
+    	add_file(Hashs_before);
+    	List<Integer> Hashs = new ArrayList<Integer>();
     	try {
-    		String sql = "SELECT Hesh FROM test_file.temptable" + String.valueOf(UID) + " WHERE " + keyword + " like '%" + file_name + "%';";
+    		String sql = "SELECT Hash FROM test_file.temptable" + String.valueOf(UID) + " WHERE " + keyword + " like '%" + file_name + "%';";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-            	Heshs.add(result.getInt("Hesh"));
+            	Hashs.add(result.getInt("Hash"));
             }
             delete_table();
-            return Heshs;
+            return Hashs;
     	}catch(SQLException e) {delete_table();}
     	delete_table();
-    	return Heshs;
+    	return Hashs;
     }
     
     public void delete_table() {
