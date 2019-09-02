@@ -17,7 +17,7 @@ public class test {
 			//pfm.PrintFileInfos(pfm.getFile(1));
 			List<Integer> Heshs = new ArrayList<Integer>();
 			Heshs = pfm.getFileList();
-			Heshs = pfm.search_file(Heshs, "uploader_UID", "4");
+			Heshs = pfm.search_file(Heshs, "uploader_UID", "4", 1);
 			for(Integer i : Heshs) {
 				pfm.PrintFileInfos(pfm.getFile(i));
 				System.out.println();

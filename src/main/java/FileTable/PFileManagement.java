@@ -124,13 +124,13 @@ public class PFileManagement {
     	return Heshs;
     }
     
-    public List<Integer> order_by(List<Integer> Heshs, String keyword, boolean ASC) {
-		TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());	
+    public List<Integer> order_by(List<Integer> Heshs, String keyword, boolean ASC, int UID) {
+		TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection(), UID);	
 		return tfm.order_by(Heshs, keyword, ASC);
     }
     
-    public List<Integer> search_file(List<Integer> Heshs, String keyword, String input) {
-    	TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());	
+    public List<Integer> search_file(List<Integer> Heshs, String keyword, String input, int UID) {
+    	TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection(), UID);	
     	return tfm.search_file(Heshs, keyword, input);
     }
     
