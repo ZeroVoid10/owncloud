@@ -9,7 +9,6 @@ import java.util.List;
 import AllFileTable.FileManagement;
 import AllFileTable.MysqlConnection;
 import AllFileTable.File;
-import tempFileTable.TFileManagement;
 
 
 public class PFileManagement {
@@ -30,8 +29,11 @@ public class PFileManagement {
         	if(file == null) {
         		fm.add_file(Hesh, name, kind, dir, size, uploader_UID);
         	}
+        	file = fm.getFile(Hesh);
+        	String upload_time = file.getUpload_time();
         	Statement statement =mConnect.createStatement();
-            String sql ="INSERT INTO test_file." + table_name + "(Hesh) VALUES (" + Hesh + ");";
+            String sql ="INSERT INTO test_file." + table_name + "(Hesh, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hesh + ",'"+
+            		name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",'" + upload_time + "');";
             statement.executeUpdate(sql);
             statement.close();
             System.out.println("File " + name + " added");
@@ -83,16 +85,24 @@ public class PFileManagement {
     public int update_file_info(int Hesh, String keyword, String new_info) {
     	int result =-1;
         File file =getFile(Hesh);
-        if(file != null) {
-            FileManagement fm = new FileManagement(MysqlConnection.getConnection());
-            fm.update_file_info(Hesh, keyword, new_info);
-            result= 0;
-            return result;
-        }else {
-        	result=2;
-            System.err.println("File don't exist");
-            return result;
+        try {
+        	if(file != null) {
+	            FileManagement fm = new FileManagement(MysqlConnection.getConnection());
+	            fm.update_file_info(Hesh, keyword, new_info);
+	            String sql="UPDATE test_file." + table_name +" SET " + keyword + "= '"+new_info+ "' WHERE Hesh = '"+Hesh+"';";
+	            Statement statement =mConnect.createStatement();
+	            statement.executeUpdate(sql);
+	            statement.close();
+	            result= 0;
+	            return result;
+	        }else {
+	        	result=2;
+	            System.err.println("File don't exist");
+	            return result;
+	        }
+        }catch(SQLException e) {
         }
+    	return result;
     }
     
     public void delete_file(int Hesh) {
@@ -124,14 +134,38 @@ public class PFileManagement {
     	return Heshs;
     }
     
-    public List<Integer> order_by(List<Integer> Heshs, String keyword, boolean ASC, int UID) {
-		TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection(), UID);	
-		return tfm.order_by(Heshs, keyword, ASC);
+    public List<Integer> order_by(String keyword, boolean ASC) {
+    	List<Integer> Heshs = new ArrayList<Integer>();
+    	try {
+    		String sql = null;
+    		if(ASC) 
+    			sql = "SELECT Hesh FROM test_file." + table_name + " ORDER BY " + keyword + ";";
+    		else
+    			sql = "SELECT Hesh FROM test_file." + table_name + " ORDER BY " + keyword + " DESC;";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	Heshs.add(result.getInt("Hesh"));
+            }
+            return Heshs;
+    	}catch(SQLException e) {}
+    	return Heshs;
     }
     
-    public List<Integer> search_file(List<Integer> Heshs, String keyword, String input, int UID) {
-    	TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection(), UID);	
-    	return tfm.search_file(Heshs, keyword, input);
+    public List<Integer> search_file(String keyword, String input) {
+    	List<Integer> Heshs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT Hesh FROM test_file." + table_name + " WHERE " + keyword + " like '%" + input + "%';";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	Heshs.add(result.getInt("Hesh"));
+            }
+            if(Heshs.size() == 0)
+            	System.out.println("No result");
+            return Heshs;
+    	}catch(SQLException e) {}
+    	return Heshs;
     }
     
 }
