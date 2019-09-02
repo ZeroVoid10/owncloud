@@ -3,7 +3,6 @@ package AllFileTable;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class test {
 
 	public static void main(String[] args) {
@@ -16,17 +15,17 @@ public class test {
 			//fm.PrintFileInfos(fm.getFile(1));
 			//fm.update_file_info(1, "name", "d");
 			//fm.PrintFileInfos(fm.getFile(1));
-//			List<Integer> Heshs = new ArrayList<Integer>();
-//			Heshs = fm.order_by("name", true);
-//			for(Integer i : Heshs) {
-//				fm.PrintFileInfos(fm.getFile(i));
-//				System.out.println();
-//			}
+			List<File> files = new ArrayList<File>();
+			files = fm.order_by("name", false);
+			for(File i : files) {
+				fm.PrintFileInfos(i);
+				System.out.println();
+			}
 			//fm.delete_file(1);
 			//fm.PrintFileInfos(fm.getFile(1));
-			fm.delete_file(1);
-			fm.delete_file(2);
-			fm.delete_file(3);
+//			fm.delete_file(1);
+//			fm.delete_file(2);
+//			fm.delete_file(3);
 		}
 	}
 
