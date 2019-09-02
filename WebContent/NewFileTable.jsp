@@ -162,11 +162,13 @@ import = "java.util.*" %>
 </div> <div class="w4Lnda6s" node-type="w4Lnda6s">
 <div node-type="KPDwCE" class="KPDwCE" style="height: 784px;"><div node-type="JDeHdxb" class="JDeHdxb"><ul class="FuIxtL" node-type="FuIxtL" style="display: none;"><li><a data-deep="-1" href="javascript:;">返回上一级</a><span class="EKIHPEb">|</span></li><li node-type="tbAudfb"></li></ul></div><div class="QxJxtg"><div class="xGLMIab"><ul class="QAfdwP tvPMvPb" node-type="tvPMvPb"><li data-key="name" class="fufHyA yfHIsP" style="width:50%;">
 <div node-type="fydGNC" class="Qxyfvg fydGNC"><span class="zbyDdwb"><input name="allboxes" id ="allcheck" onclick="allcheck()" type="checkbox" value = "全选"/></span><span class="MIMvNNb">全选</span><span class="icon NbKJexb icon-checksmall"></span></div><span class="text">文件名</span><span class="xEuDywb"></span><span class="icon aHEytd icon-up"></span><span class="icon sFxCFbb icon-downtitle"></span></li><li data-key="size" class="fufHyA MCGAxG" style="width:16%;"><span class="text">大小</span><span class="xEuDywb"></span><span class="icon aHEytd icon-up"></span><span class="icon sFxCFbb icon-downtitle"></span></li><li data-key="time" class="fufHyA gObdAzb" style="width:23%;"><span class="text">修改日期</span><span class="xEuDywb"></span><span class="icon aHEytd icon-up"></span><span class="icon sFxCFbb icon-downtitle"></span></li><li data-key="time" class="fufHyA gObdAzb" style="width:10%;"><span class="text">上传人</span><span class="xEuDywb"></span><span class="icon aHEytd icon-up"></span><span class="icon sFxCFbb icon-downtitle"></span></li></ul><ul class="vwCPvP tvPMvPb" node-type="tvPMvPb" style="display: none;"><li class="fufHyA yfHIsP"><div node-type="fydGNC" class="Qxyfvg fydGNC"><span class="zbyDdwb"></span><span class="MIMvNNb">全选</span><span class="icon NbKJexb icon-checksmall"></span></div></li></ul><div class="FcQMwt global-clearfix"><span class="MdLxwM"></span><div class="KKtwaH"></div></div></div></div><div class="zJMtAEb" style=""><div node-type="NHcGw" class="NHcGw" style="overflow-y: auto; height: 726px;"><div class="vdAfKMb" style="height: auto;">
-<% fileGet.getFileName();
-List<String>nl = fileGet.getNameList();
-List<String>sl = fileGet.getSizeList();
-List<String>dl = fileGet.getDateList();
-List<String>pl = fileGet.getPathList();
+<% 
+fileGet flg = new fileGet();
+flg.getFileName();
+List<String>nl = flg.getNameList();
+List<String>sl = flg.getSizeList();
+List<String>dl = flg.getDateList();
+List<String>pl = flg.getPathList();
 String fileName = "1808.01244.pdf";    //临时
 int len = nl.size();
         

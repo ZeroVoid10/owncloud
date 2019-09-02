@@ -1,20 +1,21 @@
 package hp.fileRead;
 
+import java.io.File;
+
 /**
  * 文件信息获取类，需要传入文件路径
+ * @author HP
+ *
  */
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class fileRead {
 	private static String filePath = "C:\\Users\\HP\\Desktop\\UpLoad\\新建文本文档.txt";
 	private static File file = new File(filePath);
 	private static String fileName = file.getName();
 	private static long fileByte = file.length();
-	private static String fileSize;
-	private static String fileDate;
+	private static String fileSize = fileGetSize.getFileSize(fileByte);
+	private static String fileDate = fileGetDate.getFileDate(file);
+	private static String fileType = fileGetType.getFileType(fileName);
 	public static String getFilePath() {
 		return filePath;
 	}
@@ -26,6 +27,12 @@ public class fileRead {
 	}
 	public static void setFile(File file) {
 		fileRead.file = file;
+	}
+	public static String getFileType() {
+		return fileType;
+	}
+	public static void setFileType(String fileType) {
+		fileRead.fileType = fileType;
 	}
 	public static String getFileName() {
 		return fileName;
@@ -52,26 +59,7 @@ public class fileRead {
 		fileRead.fileDate = fileDate;
 	}
 	
-	public static void getFileData() {
-		if(fileByte<1024) {
-			fileSize = fileByte+"B";
-        }else if(fileByte<(1024*1024)) {
-        	double doublefile = (double)fileByte/1024;		        	
-        	fileSize = String.format("%.2f", doublefile) +"KB";
-        }else {
-        	double doublefile = (double)fileByte/1024/1024;
-        	fileSize = String.format("%.2f", doublefile) +"MB";
-        }
-		Calendar cal = Calendar.getInstance();  
-        long time = file.lastModified();  
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");         
-        cal.setTimeInMillis(time);
-        fileDate = formatter.format(cal.getTime());
-        
-	}
-	
 	public static void main(String[] args) {
-		getFileData();
 		System.out.println(fileName);
 		System.out.println(fileSize);
 		System.out.println(fileDate);
