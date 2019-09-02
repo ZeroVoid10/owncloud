@@ -17,11 +17,11 @@ public class FileManagement {
         this.mConnect = connection;
     }
     
-    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID) {
+    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID, String tag) {
         try {
             Statement statement =mConnect.createStatement();
-            String sql ="INSERT INTO test_file.allfiles(Hash, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hash + ",'"+
-                name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",now()" + ");";
+            String sql ="INSERT INTO test_file.allfiles(Hash, name, kind, dir, size, uploader_UID, upload_time, tag) VALUES (" + Hash + ",'"+
+                name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",now(),'" + tag + "');";
             statement.executeUpdate(sql);
             statement.close();
             System.out.println("file " + name + " added");
@@ -48,7 +48,8 @@ public class FileManagement {
                 		result.getString("dir"),
                 		result.getString("size"),
                 		result.getInt("uploader_UID"),
-                		log);            
+                		log,
+                		result.getString("tag"));            
             	statement.close();
                 return file;
             }
@@ -77,6 +78,7 @@ public class FileManagement {
 	    	System.out.println("size: " + file.getSize());
 	    	System.out.println("uploader_UID: " + file.getUploader_UID());
 	    	System.out.println("upload_time: " + file.getUpload_time());
+	    	System.out.println("tag: " + file.getTag());
     	}catch(Exception ex) {
     		
     	}

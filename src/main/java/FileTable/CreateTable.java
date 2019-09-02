@@ -22,7 +22,8 @@ public class CreateTable {
                 "dir varchar(255) NOT NULL," +
                 "size varchar(255) NOT NULL," +
                 "uploader_UID int(5) NOT NULL," +
-                "upload_time datetime DEFAULT NULL);";
+                "upload_time datetime DEFAULT NULL," +
+                "tag varchar(255) DEFAULT NULL);";
     	boolean result = false;
         try {
             Statement statement = mConnect.createStatement();

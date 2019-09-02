@@ -25,21 +25,21 @@ public class PFileManagement {
         this.table_name = table_name;
     }
     
-    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID) {
+    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID, String tag) {
     	String sql = null;
     	try {
         	FileManagement fm = new FileManagement(MysqlConnection.getConnection());
         	File file = fm.getFile(Hash);
         	if(file == null) {
-        		fm.add_file(Hash, name, kind, dir, size, uploader_UID);
+        		fm.add_file(Hash, name, kind, dir, size, uploader_UID, tag);
         		file = fm.getFile(Hash);
         		String upload_time = file.getUpload_time();
-        		sql = "INSERT INTO test_file." + table_name + "(Hash, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hash + ",'"+
-                		name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",'" + upload_time + "');";
+        		sql = "INSERT INTO test_file." + table_name + "(Hash, name, kind, dir, size, uploader_UID, upload_time, tag) VALUES (" + Hash + ",'"+
+                		name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",'" + upload_time + "','" + tag + "');";
         	}
         	else
-        		sql ="INSERT INTO test_file." + table_name + "(Hash, name, kind, dir, size, uploader_UID, upload_time) VALUES (" + Hash + ",'"+
-        				name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",now());";
+        		sql ="INSERT INTO test_file." + table_name + "(Hash, name, kind, dir, size, uploader_UID, upload_time, tag) VALUES (" + Hash + ",'"+
+        				name + "','" + kind + "','" + dir + "','" + size + "'," + uploader_UID + ",now(),'" + tag + "');";
             Statement statement =mConnect.createStatement();
             statement.executeUpdate(sql);
             statement.close();
@@ -67,7 +67,8 @@ public class PFileManagement {
                 		result.getString("dir"),
                 		result.getString("size"),
                 		result.getInt("uploader_UID"),
-                		log);            
+                		log,
+                		result.getString("tag"));            
             	statement.close();
                 return file;
             }
@@ -95,6 +96,7 @@ public class PFileManagement {
 	    	System.out.println("size: " + file.getSize());
 	    	System.out.println("uploader_UID: " + file.getUploader_UID());
 	    	System.out.println("upload_time: " + file.getUpload_time());
+	    	System.out.println("tag: " + file.getTag());
     	}catch(Exception ex) {
     		
     	}

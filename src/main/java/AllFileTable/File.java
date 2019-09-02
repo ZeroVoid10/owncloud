@@ -58,6 +58,16 @@ public class File {
 		this.upload_time = upload_time;
 	}
 
+	
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+
 	int Hash;
 	String name;
 	String kind;
@@ -65,8 +75,9 @@ public class File {
 	String size;
 	int uploader_UID;
 	String upload_time;
+	String tag;
 	
-	public File(int Hash, String name, String kind, String dir, String size, int uploader_UID, String upload_time) {
+	public File(int Hash, String name, String kind, String dir, String size, int uploader_UID, String upload_time, String tag) {
 		this.Hash = Hash;
 		this.name = name;
 		this.kind = kind;
@@ -74,5 +85,6 @@ public class File {
 		this.size = size;
 		this.uploader_UID = uploader_UID;
 		this.upload_time = upload_time;
+		this.tag = tag;
 	}
 }
