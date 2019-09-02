@@ -129,9 +129,9 @@ public class PFileManagement {
 		return tfm.order_by(Heshs, keyword, ASC);
     }
     
-    public List<Integer> search_file(List<Integer> Heshs, String file_name) {
+    public List<Integer> search_file(List<Integer> Heshs, String keyword, String input) {
     	TFileManagement tfm = new TFileManagement(MysqlConnection.getConnection());	
-    	return tfm.search_file(Heshs, file_name);
+    	return tfm.search_file(Heshs, keyword, input);
     }
     
 }
