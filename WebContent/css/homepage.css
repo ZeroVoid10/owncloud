@@ -1,0 +1,173 @@
+body,
+button,
+input,
+select,
+textarea {
+    color: rgb(102, 102, 102);
+}
+
+body {
+    background-color: #fff;
+}
+
+#layoutApp {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.frame-all {
+    background-color: #f7f7f7;
+}
+
+.layout-header {
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 62px;
+    z-index: 41;
+    position: absolute;
+}
+
+.header {
+    position: relative;
+    height: 62px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.05);
+}
+
+.top-bar {
+    width: 100%;
+    height: 40px;
+    font-size: 12px;
+    margin-top: -20px;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 0;
+}
+
+.top-bar .logo {
+    width: 142px;
+    height: 32px;
+    margin: 4px 0;
+    margin-left: 20px;
+    vertical-align: middle;
+    float: left;
+    background-image: url(/img/logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+
+.top-bar .logo a {
+    height: 100%;
+    display: block;
+}
+
+.top-bar .logo a:link {
+    outline: 0;
+    text-decoration: none;
+}
+
+.top-bar .app-list {
+    width: auto;
+    height: 100%;
+    padding-left: 34px;
+    position: relative;
+    float: left;
+}
+
+.top-bar .app-list .item-wrap {
+    display: inline-block;
+    font-size: 16px;
+    height: 42px;
+    line-height: 38px;
+    margin: 0 25px;
+    vertical-align: middle;
+    position: relative;
+}
+
+.top-bar .app-list .item-wrap a {
+    display: block;
+    padding: 0 2px;
+}
+
+.top-bar .app-list .item-wrap a:link {
+    outline: 0;
+    text-decoration: none;
+}
+
+.top-bar .app-list dd {
+    display: block;
+    margin-inline-start: 4opx;
+}
+
+.top-bar .user-info-wrap {
+    color: #424e67;
+    margin-right: 10px;
+    position: relative;
+    height: 100%;
+    float: right;
+}
+
+.top-bar .user-info-wrap .user-info {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    margin-right: 15px;
+}
+
+.top-bar .user-info-wrap .user-info .usernam {
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.layout-aside {
+    width: 194px;
+    height: 100%;
+    top: 62px;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    position: absolute;
+}
+
+.aside-wrap {
+    padding-top: 10px;
+    height: 100%;
+}
+
+.aside-wrap ul {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.aside-wrap a {
+    height: 45px;
+    line-height: 45px;
+    background: rgba(0,0,0,.05);
+    padding: 0 0 0 15px;
+    font-size: 14px;
+    text-decoration: none;
+    zoom: 1;
+}
+
+.layout-main {
+    top: 62px;
+    left: 194px;
+    bottom: 0px;
+    right: 10px;
+    z-index: 1;
+    background-color: #fff;
+    position: absolute;
+}
