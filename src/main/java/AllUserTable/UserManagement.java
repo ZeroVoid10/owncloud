@@ -180,4 +180,18 @@ public class UserManagement {
     	}catch(SQLException e) {}
     	return UIDs;
     }
+    
+    public List<Integer> get_user_list() {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT UID FROM test.allusers;";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
+    }
 }
