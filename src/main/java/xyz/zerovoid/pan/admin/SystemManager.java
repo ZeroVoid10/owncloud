@@ -64,6 +64,8 @@ public class SystemManager {
             pref.clear();
             throw e;
 		}
+        pref.setInstalled();
+        logger.info("pref installed: " + pref.getInstalled());
         logger.info("Install successed.");
     }
 
@@ -82,6 +84,14 @@ public class SystemManager {
         stat.execute(table.getCreateString());
         stat.close();
         logger.info("Created user table.");
+    }
+
+    public boolean CheckInstalled() {
+        if (pref.getInstalled().compareTo("ok") == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void addBaseInfo() {

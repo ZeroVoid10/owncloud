@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.zerovoid.pan.admin.SystemManager;
+import xyz.zerovoid.pan.util.AppPreferences;
 
 /**
  * Servlet implementation class InstallServlet
@@ -36,9 +37,18 @@ public class InstallServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-        //doPost(request, response);
+        PrintWriter printer = response.getWriter();
+        response.setContentType("application/json");
+        JSONObject json = new JSONObject();
+        ServletContext app = this.getServletContext();
+        if (AppPreferences.getInstance().getInstalled().compareTo("ok") == 0) {
+            logger.error("Inlegal reinstall!!! Redirection to index.");
+            app.setAttribute("installed", "installed");
+            json.put("inlegal", true);
+            printer.print(json.toString());
+            printer.flush();
+            printer.close();
+        }
 	}
 
 	/**
@@ -46,33 +56,41 @@ public class InstallServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-        ServletContext app = this.getServletContext();
-        if (app.getAttribute("appStatus") != null) {
-            logger.error("Inlegal reinstall!");
-            return;
-        }
-        
+        boolean installed = true;
         PrintWriter printer = response.getWriter();
         response.setContentType("application/json");
         JSONObject json = new JSONObject();
+        
+        ServletContext app = this.getServletContext();
+        if (AppPreferences.getInstance().getInstalled().compareTo("ok") == 0) {
+            json.put("inlegal", true);
+            app.setAttribute("installed", "installed");
+            printer.print(json.toString());
+            printer.flush();
+            printer.close();
+            logger.error("inlegal reinstall!");
+            return;
+        }
 
         Map<String, String[]> map = request.getParameterMap();
 
-        SystemManager manager = null;
         try {
-            manager = new SystemManager(map);
+            SystemManager manager = new SystemManager(map);
 			manager.install();
 		} catch (SQLException e) {
             // 方便调试安装过程
-            //app.setAttribute("appStatus", "installed");
-            logger.error("Install failed.");
+            installed = false;
             json.put("installed", false);
+            logger.error("Install failed.");
 			e.printStackTrace();
         } 
-        json.put("installed", true);
+        if (installed) {
+            app.setAttribute("installed", "installed");
+            json.put("installed", true);
+        }
         printer.print(json.toString());
         printer.flush();
         printer.close();
-}
+    }
 
 }

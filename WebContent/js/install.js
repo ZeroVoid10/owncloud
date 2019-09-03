@@ -1,3 +1,6 @@
+$(function(){
+    check();    
+})
 $(document).ready(function(){
     $('#install').submit(function(e) {
         e.preventDefault();
@@ -17,7 +20,7 @@ $(document).ready(function(){
                     if (res.installed == true) {
                         toLogin();
                     } else {
-                        installFailed();
+                        installFailed(res);
                     }
                 },
                 error: function() {
@@ -101,6 +104,24 @@ function toLogin() {
     });
 }
 
-function installFailed() {
-    $("#install-msg").html("安装失败，请检查填写信息及数据库配置");
+function installFailed(res) {
+    if (res.hasOwnProperty("inlegal")) {
+        $("#install-msg").html("应用已安装，非法再次安装");
+    } else {
+        $("#install-msg").html("安装失败，请检查填写信息及数据库配置");
+    }
+}
+
+function check() {
+    $.ajax({
+        type: 'GET',
+        url: 'InstallServlet',
+        async: false,
+        success:function(msg) {
+            if (msg.hasOwnProperty("inlegal")) {
+                window.location.href = "login";
+            }
+        }
+    })
+
 }

@@ -6,6 +6,22 @@
 
 <html>
 <head>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        reinstall();    
+    })
+    function reinstall() {
+        $.ajax({
+            type: 'GET',
+            url: 'ReinstallServlet',
+            async: false
+        })
+
+    }
+
+    </script>
 </head>
 <body>
     Have remove Attribute "installed".

@@ -31,6 +31,26 @@ public class AppPreferences {
         return instance;
     }
 
+    public void setInstalled() {
+        pref.put("installed", "ok");
+        try {
+			pref.flush();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+            logger.error("pref flush failed.");
+		}
+    }
+
+    public void setReinstall() {
+        pref.put("installed", "failed");
+        try {
+			pref.flush();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+            logger.error("pref flush failed.");
+		}
+    }
+
     public void clear() {
         try {
 			pref.clear();
@@ -83,5 +103,9 @@ public class AppPreferences {
 
     public String getDBDriver() {
         return pref.get("db_driver", null);
+    }
+
+    public String getInstalled() {
+        return pref.get("installed", "failed");
     }
 }
