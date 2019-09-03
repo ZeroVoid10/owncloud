@@ -34,26 +34,37 @@ public class UserDao {
     }
 
     public User findUser(int uid) throws SQLException {
-        User user = null;
         String sql = "select * from user where uid=?";
         this.pstmt = conn.prepareStatement(sql);
         this.pstmt.setInt(1, uid);
-        ResultSet res = this.pstmt.executeQuery();
-        if (res.next()) {
-            user = User.getNewUser()
-                    .setUID(res.getInt("uid"))
-                    .setMail(res.getString("mail"))
-                    .setName(res.getString("name"))
-                    .setPassword(res.getString("pasword"))
-                    .setGroup(res.getString("groupname"));
-        }
-        this.pstmt.close();
-        return user;
+        return res2User();
+    }
+
+    public User findUser(String mail) throws SQLException {
+        String sql = "select * from user where mail=?";
+        this.pstmt = conn.prepareStatement(sql);
+        this.pstmt.setString(1, mail);
+        return res2User();
     }
 
     public boolean doModify(User user) throws SQLException {
         boolean flag = false;
         return flag;
+    }
+
+    private User res2User() throws SQLException {
+        User user = null;
+        ResultSet res = this.pstmt.executeQuery();
+        if (res.next()) {
+            user = User.getNewUser()
+                    .setUID(res.getInt("uid"))
+                    .setMail(res.getString("mail"))
+                    .setName(res.getString("username"))
+                    .setPassword(res.getString("password"))
+                    .setGroup(res.getString("groupname"));
+        }
+        this.pstmt.close();
+        return user;
     }
 }
 

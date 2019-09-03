@@ -41,6 +41,19 @@
   </servlet-mapping>
 
   <servlet>
+    <description>register page</description>
+    <servlet-name>register</servlet-name>
+    <jsp-file>/WEB-INF/admin/register.jsp</jsp-file>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>register</servlet-name>
+    <url-pattern>/register</url-pattern>
+    <url-pattern>/register.jsp</url-pattern>
+    <url-pattern>/register.html</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <description>debug reinstall</description>
     <servlet-name>reinstall</servlet-name>
     <jsp-file>/WEB-INF/reinstall.jsp</jsp-file>
@@ -64,6 +77,13 @@
   	<servlet-name>ReinstallServlet</servlet-name>
   	<servlet-class>xyz.zerovoid.pan.servlet.ReinstallServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>LoginServlet</display-name>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>xyz.zerovoid.pan.servlet.LoginServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
   	<servlet-name>InstallServlet</servlet-name>
@@ -72,6 +92,10 @@
   <servlet-mapping>
   	<servlet-name>ReinstallServlet</servlet-name>
   	<url-pattern>/ReinstallServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

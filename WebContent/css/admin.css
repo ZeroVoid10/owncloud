@@ -221,6 +221,20 @@ textarea {
     margin: 8px auto;
 }
 
+.error-msg-list .item {
+    width: 280px;
+    background-color: rgba(0,0,0,.3);
+    margin: 0 auto 2px;
+    padding: 13px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #fff;
+    text-align: left;
+    border: none;
+    border-radius: 4px;
+    list-style: none;
+}
+
 .login-form-nav {
     list-style: none;
     width: 300px;

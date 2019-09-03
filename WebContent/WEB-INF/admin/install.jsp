@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script serc="js/util.js"></script>
     <script src="js/install.js"></script>
     <link rel="shortcut icon", href="img/logo.png")>
 </head>

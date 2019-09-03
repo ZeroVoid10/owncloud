@@ -32,4 +32,14 @@ public class UserManager {
         User user = new User(map);
         return userDao.doInsert(user);
     }
+
+    public int login(Map<String, String[]> map) throws SQLException {
+        User user = userDao.findUser(map.get("mail")[0]);
+        if (user == null) {
+            return 2; // user mail does not register
+        } else if (user.getPassword().compareTo(map.get("password")[0]) != 0) {
+            return 1; // password incorrect
+        }
+        return 0;
+    }
 }
