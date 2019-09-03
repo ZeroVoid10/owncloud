@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import AllUserTable.UserManagement;
 
 public class administratorManagement {
@@ -66,5 +69,19 @@ public class administratorManagement {
                 System.err.println("Administrator don't exist");
             }
         }catch(SQLException e) {}
+    }
+    
+    public List<Integer> get_user_list() {
+    	List<Integer> UIDs = new ArrayList<Integer>();
+    	try {
+    		String sql = "SELECT UID FROM test.publicfileadministrator;";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	UIDs.add(result.getInt("UID"));
+            }
+            return UIDs;
+    	}catch(SQLException e) {}
+    	return UIDs;
     }
 }

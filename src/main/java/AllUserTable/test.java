@@ -15,7 +15,7 @@ public class test {
 			//um.PrintUserInfos(um.getUserInfos(4));
 			//System.out.println();
 			List<Integer> UIDs = new ArrayList<Integer>();
-			UIDs = um.search_user("Li");
+			UIDs = um.get_user_list();
 			for(Integer i : UIDs) {
 				um.PrintUserInfos(um.getUserInfos(i));
 				System.out.println();
