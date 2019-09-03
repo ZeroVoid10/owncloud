@@ -1,10 +1,14 @@
 package hp.fileRead;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+
+/**
+ * 鏂囦欢璇诲彇绫伙紝鍒楄〃瀛樺偍
+ * @author HP
+ *
+ */
 
 public class fileGet {
 	private static String filePath = "C:\\Users\\HP\\Desktop\\UpLoad";
@@ -14,6 +18,7 @@ public class fileGet {
 	private static List<String> sizeList = new ArrayList<String>();
 	private static List<String> dateList = new ArrayList<String>();
 	private static List<String> pathList = new ArrayList<String>();
+	private static List<String> typeList = new ArrayList<String>();
 	
 	public static List<String> getPathList() {
 		return pathList;
@@ -40,48 +45,36 @@ public class fileGet {
 		fileGet.dateList = dateList;
 	}
 	
-	public static void getFileName() {
-		List<File> wjList = new ArrayList<File>();//新建一个文件集合
+	public void getFileName() {
+		List<File> wjList = new ArrayList<File>();
 		List<String> namelist = new ArrayList<String>();
 		List<String> sizelist = new ArrayList<String>();
 		List<String> datelist = new ArrayList<String>();
 		List<String> pathlist = new ArrayList<String>();
+		List<String> typelist = new ArrayList<String>();
 		for (int i = 0; i < fileList.length; i++) {
-		   if (fileList[i].isFile()) {//判断是否为文件
+		   if (fileList[i].isFile()) {
 		        wjList.add(fileList[i]);
 		        String name = fileList[i].getName();
 		        String path = fileList[i].getPath();
 		        String Size = null;
+		        String type = fileGetType.getFileType(name);
 		        long fileSize = fileList[i].length();
-		        if(fileSize<10240) {
-		        	Size = fileSize+"B";
-		        }else if(fileSize<(10240*1024)) {
-		        	Size = fileSize/1024+"KB";
-		        }else {
-		        	Size = fileSize/1024/1024+"MB";
-		        }
-		        Calendar cal = Calendar.getInstance();  
-		        long time = fileList[i].lastModified();  
-		        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");         
-		        cal.setTimeInMillis(time);    
-		        System.out.println(name+"    "+ Size +"    "+ formatter.format(cal.getTime()));
+		        Size = fileGetSize.getFileSize(fileSize);
+		        String Date = fileGetDate.getFileDate(fileList[i]); 
+		        System.out.println(type + name +"    "+ Size +"    "+ Date);
 		        namelist.add(name);
 		        sizelist.add(Size);
-		        datelist.add(formatter.format(cal.getTime()));
+		        datelist.add(Date);
 		        pathlist.add(path);
+		        typelist.add(type);
 		   }
 		}
-
-        nameList = namelist;
+		nameList = namelist;
         sizeList = sizelist;
         dateList = datelist;
         pathList = pathlist;
-	}
-	public static void main(String[] args) {
-		getFileName();
-		System.out.println(nameList);
-		System.out.println(dateList);
-		System.out.println(pathList);
+        typeList = typelist;
 	}
 
 }

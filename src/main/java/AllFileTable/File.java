@@ -2,12 +2,12 @@ package AllFileTable;
 
 public class File {
 
-	public int getHesh() {
-		return Hesh;
+	public int getHash() {
+		return Hash;
 	}
 
-	public void setHesh(int hesh) {
-		Hesh = hesh;
+	public void setHash(int hash) {
+		Hash = hash;
 	}
 
 	public String getName() {
@@ -58,21 +58,33 @@ public class File {
 		this.upload_time = upload_time;
 	}
 
-	int Hesh;
+	
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+
+	int Hash;
 	String name;
 	String kind;
 	String dir;
 	String size;
 	int uploader_UID;
 	String upload_time;
+	String tag;
 	
-	public File(int Hesh, String name, String kind, String dir, String size, int uploader_UID, String upload_time) {
-		this.Hesh = Hesh;
+	public File(int Hash, String name, String kind, String dir, String size, int uploader_UID, String upload_time, String tag) {
+		this.Hash = Hash;
 		this.name = name;
 		this.kind = kind;
 		this.dir = dir;
 		this.size = size;
 		this.uploader_UID = uploader_UID;
 		this.upload_time = upload_time;
+		this.tag = tag;
 	}
 }
