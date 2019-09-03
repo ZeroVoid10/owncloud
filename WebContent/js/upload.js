@@ -10,6 +10,15 @@ function CheckPost(){
         	   return false;
            }
        }
+       function checkpath(){
+    	   var path = "";
+    	   var checkbox = document.getElementsByName("boxes[]");
+    	   for(var i=0;i<checkbox.length ;i ++){ 
+    		   if(checkbox[i].checked==true){
+    			   path += checkbox[i].value +";";
+    		   }
+    	   }
+       }
        function allcheck() {
            var nn = document.getElementById("allcheck").checked; 
                if(nn == true) {
@@ -24,6 +33,7 @@ function CheckPost(){
                 	   checkbox[i].checked=false;
                    }
                }
+               checkpath();
            }
        function checkall() {
     	   var checkbox = document.getElementsByName("boxes[]");
@@ -35,6 +45,7 @@ function CheckPost(){
         		   document.getElementById("allcheck").checked = true;
         	   }
            }
+    	   checkpath();
        }
        function download(){
     	   var path = document.getElementsByName("boxes[]").value;
