@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,8 +73,10 @@ public class UploadServlet extends HttpServlet {
 						
 						try {
 							item.write(file);
-							System.out.println(fileName+"上传成功");
-							return;
+							System.out.println(fileName+"涓婁紶鎴愬姛");
+							String page="NewFileTable.jsp";
+							RequestDispatcher rd = request.getRequestDispatcher(page);
+							rd.forward(request,response);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -85,6 +88,7 @@ public class UploadServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	/**
