@@ -2,6 +2,8 @@
 
 # Eclipse
 .settings
+.classpath
+.project
 
 
 # Ignore Gradle build output directory
