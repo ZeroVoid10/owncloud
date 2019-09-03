@@ -18,7 +18,10 @@ import = "java.util.*" %>
     <meta content="b31ebb7c3759312418b3645de4991aef" name="baidu-tc-verification">
     <meta content="max-age=30" http-equiv="Cache-Control">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    
+    <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="css/cover.css">
+    <link rel="stylesheet" type="text/css" href="css/upload.css">
     <link rel="stylesheet" node-type="theme-link" type="text/css" href="css/diskSystem-theme.css">
     <link rel="stylesheet" type="text/css" href="css/alpha.css">
     <link rel="stylesheet" type="text/css" href="css/function.css">
@@ -27,6 +30,7 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/home-all_5215898.css">
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
     <script type="text/javascript" src="css/vipWarn-all_88ec5d3.js"></script>
+    <script type="text/javascript" src="js/uploadButton.js"></script>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
     <style type="text/css">
         .context-menu {
@@ -376,11 +380,13 @@ import = "java.util.*" %>
                                                 <div
                                                     style="display:none;width:100%;height:100%;z-index:30;position:absolute;top:0;left:0;">
                                                 </div>
-                                                <a class="g-button g-button-blue blue-upload" data-button-id="b31"
-                                                    data-button-index="1" href="javascript:;" title="上传"
+                                                <a class="g-button g-button-blue blue-upload" id="uploadbutton" data-button-id="b31"
+                                                    data-button-index="1" href="javascript:;" onclick = "show();" title="上传文件"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-upload" title="上传"></em><span class="text"
                                                             style="width: auto;">上传文件</span></span></a>
+                                                            <div id="pic" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                                            
                                                 <a class="g-button" data-button-id="b33" data-button-index="2"
                                                     href="javascript:;" title="新建文件夹"
                                                     style="display: inline-block;"><span class="g-button-right"><em

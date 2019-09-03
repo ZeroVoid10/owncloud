@@ -34,27 +34,3 @@ input:active {
   font-size: 12px;
   outline: none;
 }
-table.fileTable {
-  width: 100%;
-}
-th {
-  height: 30px;
-}
-th.fileName {
-  width: 30%;
-}
-th.fileSize {
-  width: 20%;
-}
-th.fileDate {
-  width: 30%;
-}
-tr {
-  height: 25px;
-}
-input {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-}
