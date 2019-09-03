@@ -63,6 +63,7 @@ public class fileRead {
 		System.out.println(fileName);
 		System.out.println(fileSize);
 		System.out.println(fileDate);
+		System.out.println(fileType);
 	}
 
 }

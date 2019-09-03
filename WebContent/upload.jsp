@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "hp.fileRead.fileGet"
+<%@ page import = "hp.fileRead.*"
 import = "java.lang.*"
 import = "java.util.*" %>
 <!DOCTYPE html>
@@ -29,7 +29,9 @@ import = "java.util.*" %>
             <th class = "fileSize">文件大小</th>
             <th class = "fileDate">修改时间</th>
         </tr>
-        <% fileGet.getFileName();
+        <% 
+        fileGet flg = new fileGet();
+        flg.getFileName();
         List<String>nl = fileGet.getNameList();
         List<String>sl = fileGet.getSizeList();
         List<String>dl = fileGet.getDateList();

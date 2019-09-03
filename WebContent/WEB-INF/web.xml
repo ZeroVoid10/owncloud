@@ -84,7 +84,7 @@
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>xyz.zerovoid.pan.servlet.LoginServlet</servlet-class>
   </servlet>
-
+  
   <servlet-mapping>
   	<servlet-name>InstallServlet</servlet-name>
   	<url-pattern>/InstallServlet</url-pattern>
