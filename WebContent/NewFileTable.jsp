@@ -614,6 +614,7 @@ List<String>nl = flg.getNameList();
 List<String>sl = flg.getSizeList();
 List<String>dl = flg.getDateList();
 List<String>pl = flg.getPathList();
+List<String>cl = flg.getChangeList();
 String fileName = "1808.01244.pdf";    //临时
 int len = nl.size();
         
@@ -624,7 +625,7 @@ for(int i = 0;i<len;i++){ %>
                                                                 onclick="checkall()" type="checkbox" id="check"
                                                                 value="<%= pl.get(i) %>" /><span
                                                                 class="icon NbKJexb"></span></span>
-                                                        <div class="creyDgd dir-small"></div>
+                                                        <div class="creyDgd dir-small"><img src="img/<%= cl.get(i) %>.png" style="width:26px;height:26px;"></div>
                                                         <div class="file-name" style="width:50%">
                                                             <div class="text"><a href="javascript:void(0);"
                                                                     class="ltvdXqk"

@@ -92,7 +92,6 @@ public class fileGet {
 		        String Size = null;
 		        String type = fileGetType.getFileType(name);
 		        String change = fileTypeChange.changeType(type);
-		        System.out.println(type);
 		        long fileSize = fileList[i].length();
 		        Size = fileGetSize.getFileSize(fileSize);
 		        String Date = fileGetDate.getFileDate(fileList[i]); 
@@ -115,7 +114,7 @@ public class fileGet {
 	
 	public static void main(String[] args) {
 		getFileName();
-		System.out.println();
+		System.out.println(changeList);
 	}
 
 }
