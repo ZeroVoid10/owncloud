@@ -19,6 +19,7 @@ public class fileGet {
 	private static List<String> dateList = new ArrayList<String>();
 	private static List<String> pathList = new ArrayList<String>();
 	private static List<String> typeList = new ArrayList<String>();
+	private static List<String> changeList = new ArrayList<String>();
 	
 	public static List<String> getPathList() {
 		return pathList;
@@ -45,13 +46,44 @@ public class fileGet {
 		fileGet.dateList = dateList;
 	}
 	
-	public void getFileName() {
+	public static String getFilePath() {
+		return filePath;
+	}
+	public static void setFilePath(String filePath) {
+		fileGet.filePath = filePath;
+	}
+	public static File getFile() {
+		return file;
+	}
+	public static void setFile(File file) {
+		fileGet.file = file;
+	}
+	public static File[] getFileList() {
+		return fileList;
+	}
+	public static void setFileList(File[] fileList) {
+		fileGet.fileList = fileList;
+	}
+	public static List<String> getTypeList() {
+		return typeList;
+	}
+	public static void setTypeList(List<String> typeList) {
+		fileGet.typeList = typeList;
+	}
+	public static List<String> getChangeList() {
+		return changeList;
+	}
+	public static void setChangeList(List<String> changeList) {
+		fileGet.changeList = changeList;
+	}
+	public static void getFileName() {
 		List<File> wjList = new ArrayList<File>();
 		List<String> namelist = new ArrayList<String>();
 		List<String> sizelist = new ArrayList<String>();
 		List<String> datelist = new ArrayList<String>();
 		List<String> pathlist = new ArrayList<String>();
 		List<String> typelist = new ArrayList<String>();
+		List<String> changelist = new ArrayList<String>();
 		for (int i = 0; i < fileList.length; i++) {
 		   if (fileList[i].isFile()) {
 		        wjList.add(fileList[i]);
@@ -59,6 +91,8 @@ public class fileGet {
 		        String path = fileList[i].getPath();
 		        String Size = null;
 		        String type = fileGetType.getFileType(name);
+		        String change = fileTypeChange.changeType(type);
+		        System.out.println(type);
 		        long fileSize = fileList[i].length();
 		        Size = fileGetSize.getFileSize(fileSize);
 		        String Date = fileGetDate.getFileDate(fileList[i]); 
@@ -68,6 +102,7 @@ public class fileGet {
 		        datelist.add(Date);
 		        pathlist.add(path);
 		        typelist.add(type);
+		        changelist.add(change);
 		   }
 		}
 		nameList = namelist;
@@ -75,6 +110,12 @@ public class fileGet {
         dateList = datelist;
         pathList = pathlist;
         typeList = typelist;
+        changeList = changelist;
+	}
+	
+	public static void main(String[] args) {
+		getFileName();
+		System.out.println();
 	}
 
 }
