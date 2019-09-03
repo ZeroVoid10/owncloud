@@ -16,7 +16,7 @@ public class test {
 //			fm.update_file_info(2, "tag", "Annie Li;balabala");
 //			fm.PrintFileInfos(fm.getFile(2));
 			List<File> files = new ArrayList<File>();
-			files = fm.search_file("tag", "James;Haibara");
+			files = fm.mult_search_file("a", "exe", "1", "Haibara");
 			for(File i : files) {
 				fm.PrintFileInfos(i);
 				System.out.println();

@@ -187,4 +187,41 @@ public class PFileManagement {
     	return files;
     }
     
+    public List<File> mult_search_file(String name, String kind, String uploader_UID, String tag) {
+    	List<File> files = new ArrayList<File>();
+    	String sql = "SELECT Hash FROM test_file." + table_name;
+    	try {
+    		if(name != "")
+    			sql += (" WHERE name like '%" + name + "%'");
+    		if(kind != "") {
+    			if(name == "")
+    				sql += (" WHERE kind like '%" + kind + "%'");
+    			else
+    				sql += (" AND kind like '%" + kind + "%'");
+    		}
+    		if(uploader_UID != "") {
+    			if(name == "" && kind == "")
+    				sql += (" WHERE uploader_UID like '%" + uploader_UID + "%'");
+    			else
+    				sql += (" AND uploader_UID like '%" + uploader_UID + "%'");
+    		}
+    		if(tag != "") {
+    			if(name == "" && kind == "" && uploader_UID == "")
+    				sql += (" WHERE tag like '%" + tag + "%'");
+    			else
+    				sql += (" AND tag like '%" + tag + "%'");
+    		}
+    		sql += ";";
+    		Statement statement =mConnect.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+            	files.add(getFile(result.getInt("Hash")));
+            }
+            if(files.size() == 0)
+            	System.out.println("No result");
+            return files;
+    	}catch(SQLException e) {}
+    	return files;
+    }
+    
 }

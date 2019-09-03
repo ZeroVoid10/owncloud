@@ -17,7 +17,7 @@ public class test {
 //			pfm.update_file_info(3, "tag", "");
 //			pfm.PrintFileInfos(pfm.getFile(3));
 			List<File> Files = new ArrayList<File>();
-			Files = pfm.search_file("tag", "Ai");
+			Files = pfm.mult_search_file("bca", "jpg", "1", "Ai");
 			for(File i : Files) {
 				pfm.PrintFileInfos(i);
 				System.out.println();
