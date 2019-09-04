@@ -13,18 +13,21 @@ function CheckPost(){
 function CheckSearch(){
 	var searchpro = document.getElementById("searchproject").value;
     var searchtag = document.getElementById("searchtag").value;
+    var searchuid = document.getElementById("searchuid").value;
     var searchfile = document.getElementById("searchfile").value;
-	if(searchpro == ""&&searchtag == ""&&searchfile == ""){
+	if(searchpro == ""&&searchtag == ""&&searchuid == ""&&searchfile == ""){
  	   alert("请输入搜索项");
  	   return false;
     }
 }
        function checkpath(){
     	   var path = "";
+    	   var num = 0;
     	   var checkbox = document.getElementsByName("boxes[]");
     	   for(var i=0;i<checkbox.length ;i ++){ 
     		   if(checkbox[i].checked==true){
     			   path += checkbox[i].value +";";
+    			   num ++;
     		   }
     	   }
     	   alert(path);

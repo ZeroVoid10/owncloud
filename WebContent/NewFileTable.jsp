@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "hp.fileRead.fileGet"
+<%@ page import = "hp.fileRead.*"
+import = "hp.project.*"
 import = "java.lang.*"
 import = "java.io.*"
 import = "java.util.*" %>
@@ -13,7 +14,7 @@ import = "java.util.*" %>
     <meta charset="UTF-8">
     <title>协同办公资源管理子系统</title>
 
-    <script type="text/javascript" src="js/upload.js"></script>
+    <script type="text/javascript" src="js/fileload.js"></script>
 
 
     <meta content="b31ebb7c3759312418b3645de4991aef" name="baidu-tc-verification">
@@ -30,7 +31,7 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/all_fe4c0e3.css">
     <link rel="stylesheet" type="text/css" href="css/home-all_5215898.css">
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
-    <script type="text/javascript" src="js/uploadButton.js"></script>
+    <script type="text/javascript" src="js/fileloadButton.js"></script>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
 
 </head>
@@ -135,24 +136,26 @@ import = "java.util.*" %>
                                         <div class="button" style="white-space: nowrap; position: relative;">
                                             
                                             <div style="position: absolute; top: 0px; line-height: normal; padding-top: 11px; padding-left: 0px; width: auto;">
-                                                
+                                        <!-- 上传文件 -->        
                                                 <a class="g-button g-button-blue blue-upload" id="uploadbutton" 
                                                      onclick = "show();" title="上传文件"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-upload" title="上传"></em><span class="text"
                                                             style="width: auto;">上传文件</span></span></a>
                                                             <div id="pic" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
-                                                            
-                                                <a class="g-button" title="新建项目"
+                                        <!-- 新建项目 -->
+                                                <a class="g-button" title="新建项目" onclick="createproject()"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-newfolder" title="新建项目"></em><span
                                                             class="text" style="width: auto;">新建项目</span></span></a>
+                                        <!-- 下载文件 -->        
                                                 <a class="g-button" title="下载文件" onclick="checkpath();"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-download" title="下载文件"></em><span
                                                             class="text"
                                                             style="width: auto;">下载文件</span></span></a>
-                                                <a class="g-button" title="更多"><span class="g-button-right"><em
+                                        <!-- 更多 -->        
+                                                <a class="g-button" title="更多" onclick="getmore()"><span class="g-button-right"><em
                                                             class="icon icon-more" title="更多"></em><span class="text"
                                                             style="width: auto;">更多</span></span></a><span class="menu"
                                                     style="width: 70px;"><a style="display:none;" data-menu-id="b-menu0"
@@ -171,6 +174,10 @@ import = "java.util.*" %>
                                            </div>
                                     </div>
                                 <!-- 文件面板 -->
+                                <%
+//                              定义项目名称
+                                String projectname = "Upload";
+                                %>
                                     <div class="fileTable" style="height: 784px;">
                                         <div class="fileTop">
                                             <span>全部文件</span>
@@ -206,7 +213,7 @@ import = "java.util.*" %>
                                                 <div class="filelist" style="height: auto;">
                                                     <% 
                                                     fileGet flg = new fileGet();
-                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\UpLoad");
+                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\"+projectname);
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
