@@ -17,6 +17,7 @@ import xyz.zerovoid.pan.admin.UserManager;
 /**
  * 系统管理
  * @since 0.1.0
+ * @author James, ZeroVoid
  */
 public class SystemManager {
     
@@ -86,6 +87,20 @@ public class SystemManager {
         logger.info("Created user table.");
     }
 
+    public void CreateFileInfoTable() throws SQLException {
+    	String sql="CREATE TABLE IF NOT EXISTS allfiles(" +
+    			"Hash int(8) PRIMARY KEY NOT NULL,"+
+                "name varchar(255) NOT NULL," + 
+                "kind varchar(255) NOT NULL," + 
+                "dir varchar(255) NOT NULL," +
+                "size varchar(255) NOT NULL," +
+                "uploader_UID int(5) NOT NULL," +
+                "upload_time datetime DEFAULT NULL," +
+                "tag varchar(255) DEFAULT NULL);";
+        createTable(sql);
+        logger.info("Create fileinfo table");
+    }
+
     public boolean CheckInstalled() {
         if (pref.getInstalled().compareTo("ok") == 0) {
             return true;
@@ -102,5 +117,11 @@ public class SystemManager {
         pref.setDabaseName(infoMap.get("db_name")[0]);
         pref.setCredentials(infoMap.get("db_username")[0], 
                             infoMap.get("db_password")[0]);
+    }
+
+    private void createTable(String sql) throws SQLException {
+        Statement stat = baseManager.getConnection().createStatement();
+        stat.execute(sql);
+        stat.close();
     }
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * user表的vo类
  * @since 0.1.0
+ * @author James, ZeroVoid
  */
 public class User {
 

@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://kit.fontawesome.com/e44685b5e0.js"></script>
 </head>
 <body>
-test
 </body>
 </html>
