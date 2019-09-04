@@ -11,9 +11,7 @@ import java.util.List;
  */
 
 public class fileGet {
-	private static String filePath = "C:\\Users\\HP\\Desktop\\UpLoad";
-	private static File file = new File(filePath);
-	private static File[] fileList = file.listFiles();
+	private static String projectPath;
 	private static List<String> nameList = new ArrayList<String>();
 	private static List<String> sizeList = new ArrayList<String>();
 	private static List<String> dateList = new ArrayList<String>();
@@ -46,23 +44,11 @@ public class fileGet {
 		fileGet.dateList = dateList;
 	}
 	
-	public static String getFilePath() {
-		return filePath;
+	public static String getprojectPath() {
+		return projectPath;
 	}
-	public static void setFilePath(String filePath) {
-		fileGet.filePath = filePath;
-	}
-	public static File getFile() {
-		return file;
-	}
-	public static void setFile(File file) {
-		fileGet.file = file;
-	}
-	public static File[] getFileList() {
-		return fileList;
-	}
-	public static void setFileList(File[] fileList) {
-		fileGet.fileList = fileList;
+	public static void setprojectPath(String projectPath) {
+		fileGet.projectPath = projectPath;
 	}
 	public static List<String> getTypeList() {
 		return typeList;
@@ -77,6 +63,8 @@ public class fileGet {
 		fileGet.changeList = changeList;
 	}
 	public static void getFileName() {
+		File file = new File(projectPath);
+		File[] fileList = file.listFiles();
 		List<File> wjList = new ArrayList<File>();
 		List<String> namelist = new ArrayList<String>();
 		List<String> sizelist = new ArrayList<String>();

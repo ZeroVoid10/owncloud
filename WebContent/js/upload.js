@@ -6,10 +6,19 @@ function CheckPost(){
         	   return false;
            }
            else if(file == ""){
-        	   alert(name+"请选择上传文件！");
+        	   alert("请选择上传文件！");
         	   return false;
            }
        }
+function CheckSearch(){
+	var searchpro = document.getElementById("searchproject").value;
+    var searchtag = document.getElementById("searchtag").value;
+    var searchfile = document.getElementById("searchfile").value;
+	if(searchpro == ""&&searchtag == ""&&searchfile == ""){
+ 	   alert("请输入搜索项");
+ 	   return false;
+    }
+}
        function checkpath(){
     	   var path = "";
     	   var checkbox = document.getElementsByName("boxes[]");
@@ -18,6 +27,7 @@ function CheckPost(){
     			   path += checkbox[i].value +";";
     		   }
     	   }
+    	   alert(path);
        }
        function allcheck() {
            var nn = document.getElementById("allcheck").checked; 
@@ -33,7 +43,6 @@ function CheckPost(){
                 	   checkbox[i].checked=false;
                    }
                }
-               checkpath();
            }
        function checkall() {
     	   var checkbox = document.getElementsByName("boxes[]");
@@ -45,7 +54,6 @@ function CheckPost(){
         		   document.getElementById("allcheck").checked = true;
         	   }
            }
-    	   checkpath();
        }
        function download(){
     	   var path = document.getElementsByName("boxes[]").value;

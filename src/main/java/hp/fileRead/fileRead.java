@@ -9,13 +9,13 @@ import java.io.File;
  */
 
 public class fileRead {
-	private static String filePath = "C:\\Users\\HP\\Desktop\\UpLoad\\新建文本文档.txt";
-	private static File file = new File(filePath);
-	private static String fileName = file.getName();
-	private static long fileByte = file.length();
-	private static String fileSize = fileGetSize.getFileSize(fileByte);
-	private static String fileDate = fileGetDate.getFileDate(file);
-	private static String fileType = fileGetType.getFileType(fileName);
+	private static String filePath;
+	private static File file;
+	private static String fileName;
+	private static long fileByte;
+	private static String fileSize;
+	private static String fileDate;
+	private static String fileType;
 	public static String getFilePath() {
 		return filePath;
 	}
@@ -58,8 +58,18 @@ public class fileRead {
 	public static void setFileDate(String fileDate) {
 		fileRead.fileDate = fileDate;
 	}
+	public static void getFileData() {
+		file = new File(filePath); 
+		fileName = file.getName();
+		fileByte = file.length();
+		fileSize = fileGetSize.getFileSize(fileByte);
+		fileDate = fileGetDate.getFileDate(file);
+		fileType = fileGetType.getFileType(fileName);
+	}
 	
 	public static void main(String[] args) {
+		setFilePath("C:\\Users\\HP\\Desktop\\UpLoad\\1808.01244.pdf");
+		getFileData();
 		System.out.println(fileName);
 		System.out.println(fileSize);
 		System.out.println(fileDate);

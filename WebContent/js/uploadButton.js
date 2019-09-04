@@ -19,3 +19,24 @@ function show(){
         	var curObj=document.getElementById("uploadbutton");  
             curObj.onclick = function onclick(event){show()};
         }
+        function showsearch(){
+            var x=event.clientX;
+            var y=event.clientY;
+            document.getElementById("sch").style.top=y+50;
+            document.getElementById("sch").style.left=x;
+            document.getElementById("sch").style.visibility="visible";
+            var formDiv="<form action='' method = 'post' name = 'search' enctype = 'multipart/form-data'style='padding-left: 6px;'>";
+            formDiv+="<div style = 'color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>项目名称：</div><input name = 'projectName' id = 'searchproject'/><br/>";
+            formDiv+="<div style = 'color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>文件标签：</div><input name = 'fileTag' id = 'searchtag'/><br/>";
+            formDiv+="<div style = 'color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>文件名称：</div><input name = 'filename'  id = 'searchfile'/><br/><br/>";
+            formDiv+="<input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type = 'submit' id = 'upload' value = '搜索文件' onclick = 'return CheckSearch();'></form>";     
+            document.getElementById("sch").innerHTML=formDiv;
+            var curObj=document.getElementById("searchbutton");
+            curObj.onclick = function onclick(event){hidesearch()};
+        }
+         
+        function hidesearch(){
+        	document.getElementById("sch").style.visibility="hidden";
+        	var curObj=document.getElementById("searchbutton");  
+            curObj.onclick = function onclick(event){showsearch()};
+        }

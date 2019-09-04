@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "hp.fileRead.fileGet"
 import = "java.lang.*"
+import = "java.io.*"
 import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -110,7 +111,14 @@ import = "java.util.*" %>
                                 <div class="order g-clearfix">
                                 <!-- 检索 -->
                                         <div class="search">
-                                            <div class="searchbox">
+                                            <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
+                                                <a class="g-button g-button-blue blue-upload" id="searchbutton" 
+                                                     onclick = "showsearch();" title="搜索文件"
+                                                    style="display: inline-block;"><span class="g-button-right"><em
+                                                            class="icon icon-upload" title="搜索"></em><span class="text"
+                                                            style="width: auto;">搜索文件</span></span></a>
+                                                            <div id="sch" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                                <!--  
                                                 <form action=" " method="get">
                                                     <input data-key="SEARCH_QUERY"
                                                          class="inputbox" name="q" value=""type="text">
@@ -120,6 +128,7 @@ import = "java.util.*" %>
                                                     <span class="searchtxt"
                                                         style="display: block;">搜索您的文件</span>
                                                 </form>
+                                                -->
                                             </div>
                                         </div>
                                         <!-- 文件按键 -->
@@ -138,7 +147,7 @@ import = "java.util.*" %>
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-newfolder" title="新建项目"></em><span
                                                             class="text" style="width: auto;">新建项目</span></span></a>
-                                                <a class="g-button" title="下载文件"
+                                                <a class="g-button" title="下载文件" onclick="checkpath();"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-download" title="下载文件"></em><span
                                                             class="text"
@@ -175,10 +184,10 @@ import = "java.util.*" %>
                                             <div class="sort-order">
                                                 <ul class="toporder">
                                                     <li data-key="name" class="fileTab filename" style="width:50%;">
-                                                        <div class="allcheck"><span
-                                                                class="allcheckbox"><input name="allboxes" id="allcheck"
+                                                        <div class="allcheck" style="margin-left: 4px;"><span
+                                                                class="allcheckbox" style="top: 4px;"><input name="allboxes" id="allcheck"
                                                                     onclick="allcheck()" type="checkbox"
-                                                                    value="全选" /></span>
+                                                                    value="全选" style="margin-top: auto;"/></span>
                                                          </div>
                                                          <span class="text">文件名</span>
                                                     </li>
@@ -197,13 +206,13 @@ import = "java.util.*" %>
                                                 <div class="filelist" style="height: auto;">
                                                     <% 
                                                     fileGet flg = new fileGet();
+                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\UpLoad");
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
                                                     List<String>dl = flg.getDateList();
                                                     List<String>pl = flg.getPathList();
                                                     List<String>cl = flg.getChangeList();
-                                                    String fileName = "1808.01244.pdf";    //临时
                                                     int len = nl.size();
         
                                                     for(int i = 0;i<len;i++){ %>
@@ -213,7 +222,7 @@ import = "java.util.*" %>
                                                                 value="<%= pl.get(i) %>" /></span></span>
                                                         <div class="file-img dir-small"><img src="img/<%= cl.get(i) %>.png" style="width:26px;height:26px;"></div>
                                                         <div class="file-name" style="width:50%">
-                                                            <div class="text"><a href=""
+                                                            <div class="text"><a href="<%= pl.get(i) %>"
                                                                     title="<%= nl.get(i) %>"><%= nl.get(i) %></a></div>
                                                         </div>
                                                         <div class="file-size" style="width:16%"><%= sl.get(i) %></div>
