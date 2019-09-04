@@ -42,6 +42,28 @@
             curObj.onclick = function onclick(event){showsearch()};
         }
         
+        function showadd(){
+        	var x=event.clientX;
+            var y=event.clientY;
+            document.getElementById("add").style.top=y+50;
+            document.getElementById("add").style.left=x;
+            document.getElementById("add").style.visibility="visible";
+            var formDiv="<form action='' method = 'post' name = 'search' enctype = 'multipart/form-data'style='padding-left: 6px;'>";
+            formDiv+="<div style = 'color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>项目名称：</div><input name = 'projectName' id = 'addproject'/><br/>";
+            formDiv+="<div style = 'color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>项目成员UID：</div><input name = 'personUID' id = 'adduid'/><br/>";
+            formDiv+="<label><input id='selectadd' type='radio' value='add' checked='true' onclick='addselect();'/>添加 </label> <label><input id='selectdelete' type='radio' value='delete' onclick='deleteselect();'/>删除 </label> <br/>"
+            formDiv+="<input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type = 'submit' id = 'upload' value = '添加用户' onclick = 'return CheckAdd();'></form>";     
+            document.getElementById("add").innerHTML=formDiv;
+            var curObj=document.getElementById("addbutton");
+            curObj.onclick = function onclick(event){hideadd()};
+        }
+        
+        function hideadd(){
+        	document.getElementById("add").style.visibility="hidden";
+        	var curObj=document.getElementById("addbutton");  
+            curObj.onclick = function onclick(event){showadd()};
+        }
+        
         function createproject(){
         	var projectname ="";
         	projectname = prompt("请输入项目名称：");

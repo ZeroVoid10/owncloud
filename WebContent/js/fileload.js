@@ -20,6 +20,18 @@ function CheckSearch(){
  	   return false;
     }
 }
+function CheckAdd(){
+    var project = document.getElementById("addproject").value;
+    var uid = document.getElementById("adduid").value;
+           if(project == ""){
+        	   alert("请填写项目名称！");
+        	   return false;
+           }
+           else if(uid == ""){
+        	   alert("请填写项目成员！");
+        	   return false;
+           }
+       }
        function checkpath(){
     	   var path = "";
     	   var num = 0;
@@ -58,6 +70,14 @@ function CheckSearch(){
         	   }
            }
        }
+       
+       function addselect(){
+    	   document.getElementById("selectdelete").checked = false;
+       }
+       function deleteselect(){
+    	   document.getElementById("selectadd").checked = false;
+       }
+       
        function download(){
     	   var path = document.getElementsByName("boxes[]").value;
     	   alert(path);

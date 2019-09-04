@@ -119,6 +119,7 @@ import = "java.util.*" %>
                                                             class="icon icon-upload" title="搜索"></em><span class="text"
                                                             style="width: auto;">搜索文件</span></span></a>
                                                             <div id="sch" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                                
                                                 <!--  
                                                 <form action=" " method="get">
                                                     <input data-key="SEARCH_QUERY"
@@ -131,9 +132,20 @@ import = "java.util.*" %>
                                                 </form>
                                                 -->
                                             </div>
+                                         </div>
+                                         <div class="search">
+                                            <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
+                                                <a class="g-button g-button-blue blue-upload" id="addbutton" 
+                                                     onclick = "showadd();" title="添加项目相关人员"
+                                                    style="display: inline-block;"><span class="g-button-right"><em
+                                                            class="icon icon-upload" title="添加用户"></em><span class="text"
+                                                            style="width: auto;">添加用户</span></span></a>
+                                                            <div id="add" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                               
+                                            </div>
                                         </div>
                                         <!-- 文件按键 -->
-                                        <div class="button" style="white-space: nowrap; position: relative;">
+                                        <div class="button" style="white-space: nowrap; position: relative;width:1000px">
                                             
                                             <div style="position: absolute; top: 0px; line-height: normal; padding-top: 11px; padding-left: 0px; width: auto;">
                                         <!-- 上传文件 -->        
