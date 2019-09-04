@@ -37,5 +37,10 @@ public class fileTypeChange {
 		}
 		return type;
 	}
+	public static void main(String[] args) {
+		String type = "";
+		type=changeType(type);
+		System.out.println(type);
+	}
 
 }

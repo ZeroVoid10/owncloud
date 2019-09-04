@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "hp.fileRead.fileGet"
+<%@ page import = "hp.fileRead.*"
+import = "hp.project.*"
 import = "java.lang.*"
+import = "java.io.*"
 import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -12,7 +14,7 @@ import = "java.util.*" %>
     <meta charset="UTF-8">
     <title>协同办公资源管理子系统</title>
 
-    <script type="text/javascript" src="js/upload.js"></script>
+    <script type="text/javascript" src="js/fileload.js"></script>
 
 
     <meta content="b31ebb7c3759312418b3645de4991aef" name="baidu-tc-verification">
@@ -29,7 +31,7 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/all_fe4c0e3.css">
     <link rel="stylesheet" type="text/css" href="css/home-all_5215898.css">
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
-    <script type="text/javascript" src="js/uploadButton.js"></script>
+    <script type="text/javascript" src="js/fileloadButton.js"></script>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
 
 </head>
@@ -110,7 +112,15 @@ import = "java.util.*" %>
                                 <div class="order g-clearfix">
                                 <!-- 检索 -->
                                         <div class="search">
-                                            <div class="searchbox">
+                                            <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
+                                                <a class="g-button g-button-blue blue-upload" id="searchbutton" 
+                                                     onclick = "showsearch();" title="搜索文件"
+                                                    style="display: inline-block;"><span class="g-button-right"><em
+                                                            class="icon icon-upload" title="搜索"></em><span class="text"
+                                                            style="width: auto;">搜索文件</span></span></a>
+                                                            <div id="sch" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                                
+                                                <!--  
                                                 <form action=" " method="get">
                                                     <input data-key="SEARCH_QUERY"
                                                          class="inputbox" name="q" value=""type="text">
@@ -120,30 +130,44 @@ import = "java.util.*" %>
                                                     <span class="searchtxt"
                                                         style="display: block;">搜索您的文件</span>
                                                 </form>
+                                                -->
+                                            </div>
+                                         </div>
+                                         <div class="search">
+                                            <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
+                                                <a class="g-button g-button-blue blue-upload" id="addbutton" 
+                                                     onclick = "showadd();" title="添加项目相关人员"
+                                                    style="display: inline-block;"><span class="g-button-right"><em
+                                                            class="icon icon-upload" title="添加用户"></em><span class="text"
+                                                            style="width: auto;">添加用户</span></span></a>
+                                                            <div id="add" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
+                                               
                                             </div>
                                         </div>
                                         <!-- 文件按键 -->
-                                        <div class="button" style="white-space: nowrap; position: relative;">
+                                        <div class="button" style="white-space: nowrap; position: relative;width:1000px">
                                             
                                             <div style="position: absolute; top: 0px; line-height: normal; padding-top: 11px; padding-left: 0px; width: auto;">
-                                                
+                                        <!-- 上传文件 -->        
                                                 <a class="g-button g-button-blue blue-upload" id="uploadbutton" 
                                                      onclick = "show();" title="上传文件"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-upload" title="上传"></em><span class="text"
                                                             style="width: auto;">上传文件</span></span></a>
                                                             <div id="pic" style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden"></div>
-                                                            
-                                                <a class="g-button" title="新建项目"
+                                        <!-- 新建项目 -->
+                                                <a class="g-button" title="新建项目" onclick="createproject()"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-newfolder" title="新建项目"></em><span
                                                             class="text" style="width: auto;">新建项目</span></span></a>
-                                                <a class="g-button" title="下载文件"
+                                        <!-- 下载文件 -->        
+                                                <a class="g-button" title="下载文件" onclick="checkpath();"
                                                     style="display: inline-block;"><span class="g-button-right"><em
                                                             class="icon icon-download" title="下载文件"></em><span
                                                             class="text"
                                                             style="width: auto;">下载文件</span></span></a>
-                                                <a class="g-button" title="更多"><span class="g-button-right"><em
+                                        <!-- 更多 -->        
+                                                <a class="g-button" title="更多" onclick="getmore()"><span class="g-button-right"><em
                                                             class="icon icon-more" title="更多"></em><span class="text"
                                                             style="width: auto;">更多</span></span></a><span class="menu"
                                                     style="width: 70px;"><a style="display:none;" data-menu-id="b-menu0"
@@ -162,6 +186,10 @@ import = "java.util.*" %>
                                            </div>
                                     </div>
                                 <!-- 文件面板 -->
+                                <%
+//                              定义项目名称
+                                String projectname = "Upload";
+                                %>
                                     <div class="fileTable" style="height: 784px;">
                                         <div class="fileTop">
                                             <span>全部文件</span>
@@ -175,10 +203,10 @@ import = "java.util.*" %>
                                             <div class="sort-order">
                                                 <ul class="toporder">
                                                     <li data-key="name" class="fileTab filename" style="width:50%;">
-                                                        <div class="allcheck"><span
-                                                                class="allcheckbox"><input name="allboxes" id="allcheck"
+                                                        <div class="allcheck" style="margin-left: 4px;"><span
+                                                                class="allcheckbox" style="top: 4px;"><input name="allboxes" id="allcheck"
                                                                     onclick="allcheck()" type="checkbox"
-                                                                    value="全选" /></span>
+                                                                    value="全选" style="margin-top: auto;"/></span>
                                                          </div>
                                                          <span class="text">文件名</span>
                                                     </li>
@@ -197,13 +225,13 @@ import = "java.util.*" %>
                                                 <div class="filelist" style="height: auto;">
                                                     <% 
                                                     fileGet flg = new fileGet();
+                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\"+projectname);
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
                                                     List<String>dl = flg.getDateList();
                                                     List<String>pl = flg.getPathList();
                                                     List<String>cl = flg.getChangeList();
-                                                    String fileName = "1808.01244.pdf";    //临时
                                                     int len = nl.size();
         
                                                     for(int i = 0;i<len;i++){ %>
@@ -213,7 +241,7 @@ import = "java.util.*" %>
                                                                 value="<%= pl.get(i) %>" /></span></span>
                                                         <div class="file-img dir-small"><img src="img/<%= cl.get(i) %>.png" style="width:26px;height:26px;"></div>
                                                         <div class="file-name" style="width:50%">
-                                                            <div class="text"><a href=""
+                                                            <div class="text"><a href="<%= pl.get(i) %>"
                                                                     title="<%= nl.get(i) %>"><%= nl.get(i) %></a></div>
                                                         </div>
                                                         <div class="file-size" style="width:16%"><%= sl.get(i) %></div>

@@ -1048,9 +1048,7 @@
 .order .search {
   float: right;
   width: 21%;
-  *width: 165px;
-  min-width: 165px;
-  max-width: 315px;
+  width: 160px;
   height: 30px;
   margin: 12px 8px 12px 0;
   position: relative;
