@@ -348,7 +348,7 @@ import = "java.util.*" %>
                     <div class="filelist" style="height: auto;">
                         <% 
                                                     fileGet flg = new fileGet();
-                                                    flg.setprojectPath("/home/zerovoid");
+                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\UpLoad");
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
@@ -401,13 +401,39 @@ import = "java.util.*" %>
                         <span class="header-label">
                             <a href="" target="_self" title="更多" node-type="item-title">更多</a>
                         </span>
+                        <span class="header-label" style="color:#333;font-size:10px;margin-left:500px;margin-right:0px;">
+                        <ul style="margin-top:-10px;">
+                            <li style="width:40px;height:15px;">
+                            <div>用户名：</div>
+                            </li>
+                            <li style="width:40px;height:15px;">
+                            <div>U  I  D：</div>
+                            </li>
+                            <li style="width:40px;height:15px;">
+                            <div>邮     箱：</div>
+                            </li>
+                        </ul>
+                        </span>
+                        <span class=" header-label" style="color:#333;font-size:10px;">
+                        <ul style="margin-top:-10px;">
+                            <li style="width:100px;height:15px;">
+                            <div>世博元</div>
+                            </li>
+                            <li style="width:100px;height:15px;">
+                            <div>7777777</div>
+                            </li>
+                            <li style="width:100px;height:15px;">
+                            <div>邮箱@163.com</div>
+                            </li>
+                        </ul>
+                        </span>
                     </dd>
                 </dl>
             </div>
         </div>
     </div>
     <div>
-
+??????
     </div>
     </div>
 </body>
