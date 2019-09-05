@@ -13,13 +13,15 @@ import = "java.util.*" %>
     <meta charset="UTF-8">
     <title>协同办公资源管理子系统</title>
 
-    <script type="text/javascript" src="js/fileload.js"></script>
 
     <meta content="max-age=30" http-equiv="Cache-Control">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-
     <link rel="shortcut icon" href="img/favicon.ico">
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="https://kit.fontawesome.com/e44685b5e0.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/cover.css">
     <link rel="stylesheet" type="text/css" href="css/upload.css">
     <link rel="stylesheet" node-type="theme-link" type="text/css" href="css/diskSystem-theme.css">
@@ -29,7 +31,8 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/all_fe4c0e3.css">
     <link rel="stylesheet" type="text/css" href="css/home-all_5215898.css">
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
-    <script type="text/javascript" src="js/fileloadButton.js"></script>
+
+    <script type="text/javascript" src="js/homepage.js"></script>
 
 </head>
 
@@ -121,13 +124,33 @@ import = "java.util.*" %>
                 -->
 
                     <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
-                        <a class="g-button g-button-blue blue-upload" id="searchbutton" onclick="showsearch();"
-                            title="搜索文件" style="display: inline-block;"><span class="g-button-right">
+                        <a class="g-button g-button-blue blue-upload" id="search-button" title="搜索文件"
+                            style="display: inline-block;"><span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-search"></i>
                                     搜索文件</span></span></a>
-                        <div id="sch"
-                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden">
+                        <div id="search-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
+                            <form action='' name='search' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    路径：
+                                </div>
+                                <input name='upload-path' id='searchproject' /><br />
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    文件标签：
+                                </div>
+                                <input name='fileTag' id='searchtag' /><br />
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    上传人UID：
+                                </div>
+                                <input name='personUID' id='searchuid' /><br />
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    文件名称：
+                                </div>
+                                <input name='filename' id='searchfile' /><br /><br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                    id='upload' value='搜索文件' onclick='return CheckSearch();'>
+                            </form>
                         </div>
 
                         <!--  
@@ -145,15 +168,38 @@ import = "java.util.*" %>
                 </div>
                 <div class="search">
                     <div class="searchbox" style="width: 50px;padding-right: 0px;padding-left: 0px;">
-                        <a class="g-button g-button-blue blue-upload" id="addbutton" onclick="showadd();"
-                            title="添加项目相关人员" style="display: inline-block;"><span class="g-button-right">
+                        <a class="g-button g-button-blue blue-upload" id="adduser-button" title="添加项目相关人员"
+                            style="display: inline-block;"><span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-user-plus"></i>
-                                    添加用户</span></span></a>
-                        <div id="add"
-                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden">
+                                    添加用户
+                                </span>
+                            </span>
+                        </a>
+                        <div id="adduser-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff; display: none;border: 1px solid #0098ea;border-radius: 4px;">
+                            <form id='adduser-form' name='adduser' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    项目名称：
+                                </div>
+                                <input name='projectName' id='project' /><br />
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    项目成员UID：
+                                </div>
+                                <input name='username' id='username' /><br />
+                                <label>
+                                    <input id='selectadd' type='radio' value='add' checked='true'
+                                        onclick='addselect();' />
+                                    添加
+                                </label>
+                                <label>
+                                    <input id='selectdelete' type='radio' value='delete' onclick='deleteselect();' />
+                                    删除
+                                </label> <br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                    id='upload' value='添加用户' onclick='return CheckAdd();'>
+                            </form>
                         </div>
-
                     </div>
                 </div>
                 <!-- 文件按键 -->
@@ -162,13 +208,36 @@ import = "java.util.*" %>
                     <div
                         style="position: absolute; top: 0px; line-height: normal; padding-top: 11px; padding-left: 0px; width: auto;">
                         <!-- 上传文件 -->
-                        <a class="g-button g-button-blue blue-upload" id="uploadbutton" onclick="show();" title="上传文件"
-                            style="display: inline-block;"><span class="g-button-right" style="font: #fff">
+                        <a class="g-button g-button-blue blue-upload" id="upload-button" title="上传文件"
+                            style="display: inline-block;">
+                            <span class="g-button-right" style="font: #fff">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-upload"></i>
-                                    上传文件</span></span></a>
-                        <div id="pic"
-                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;visibility: hidden">
+                                    上传文件
+                                </span>
+                            </span>
+                        </a>
+                        <div id="upload-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
+                            <form id='upload-form' name='upload' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    上传路径：
+                                </div>
+                                <input type='text' name='projectName' id='upload-path' /><br />
+                                <div id='upload-error-path' style="color: red"></div>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    文件标签：
+                                </div>
+                                <input type='text' name='fileTag' id='tags' /><br />
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    上传文件：
+                                </div>
+                                <input type='file' name='upFile' id='file' /><br /><br />
+                                <div id='upload-error-file' style="color: red"></div>
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                    id='upload-button' value='上传'>
+                            </form>
+
                         </div>
                         <!-- 新建文件夹-->
                         <a class="g-button" title="新建项目" style="display: inline-block;"><span class="g-button-right">
@@ -188,12 +257,16 @@ import = "java.util.*" %>
                                     <i class="fas fa-download"></i>
                                     下载文件</span></span></a>
                         <!-- 更多 -->
-                        <a class="g-button" title="更多" onclick="getmore()"><span class="g-button-right">
+                        <a class="g-button" title="更多" onclick="getmore()">
+                            <span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-ellipsis-v"></i>
-                                    更多</span></span></a><span class="menu" style="width: 70px;"><a style="display:none;"
-                                data-menu-id="b-menu0" class="g-button-menu g-menu-hasIcon" href=""><em
-                                    class="icon icon-upload"></em>上传</a>
+                                    更多
+                                </span>
+                            </span>
+                        </a>
+                        <span class="menu" style="width: 70px;"><a style="display:none;" data-menu-id="b-menu0"
+                                class="g-button-menu g-menu-hasIcon" href=""><em class="icon icon-upload"></em>上传</a>
                             <a style="display:none;" data-menu-id="b-menu1" class="g-button-menu g-menu-hasIcon"
                                 href=""><em class="icon icon-newfolder"></em>新建文件夹</a><a style="display:none;"
                                 data-menu-id="b-menu2" class="g-button-menu g-menu-hasIcon" href=""><em
@@ -288,7 +361,7 @@ import = "java.util.*" %>
                             <a href="" target="_self" title="项目">项目</a>
                         </span>
                         <span class=" header-label" node-type="pan-mall">
-                            <a href="" target="_blank" title="找资源">找资源</a>
+                            <a href="https://github.com/ZeroVoid10/owncloud" target="_blank" title="GitHub">GitHub</a>
                         </span>
                         <span class="header-label">
                             <a href="" target="_self" title="更多" node-type="item-title">更多</a>

@@ -1,5 +1,7 @@
 package AllFileTable;
 
+import java.util.Map;
+
 public class File {
 
 	public int getHash() {
@@ -87,4 +89,14 @@ public class File {
 		this.upload_time = upload_time;
 		this.tag = tag;
 	}
+
+    private File(Map<String, String[]> map) {
+        this.dir = map.get("upload-file")[0];
+        this.tag = map.get("tags")[0];
+    }
+
+    // Only for creating file from form
+    static File form2File(Map<String, String[]> map) {
+        return new File(map);
+    }
 }

@@ -81,9 +81,12 @@ public class SystemManager {
         col = new ColInfo("groupname", "varchar", 255, false, false);
         col.setDefaultValue("guest");
         table.addColInfo(col);
+        /*
         Statement stat = baseManager.getConnection().createStatement();
         stat.execute(table.getCreateString());
         stat.close();
+        */
+        createTable(table.getCreateString());
         logger.info("Created user table.");
     }
 

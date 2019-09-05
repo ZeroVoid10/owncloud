@@ -9,12 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+import xyz.zerovoid.pan.dao.DatabaseConnection;
+
 public class FileManagement {
 
-	public Connection mConnect;
+    private DatabaseConnection dbc = null;
+	private Connection mConnect = null;
+
     public FileManagement(Connection connection) {
         super();
         this.mConnect = connection;
+    }
+
+    public FileManagement() throws SQLException {
+        dbc = new DatabaseConnection();
+        mConnect = dbc.getConnection();
     }
     
     public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID, String tag) {

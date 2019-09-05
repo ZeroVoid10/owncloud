@@ -81,6 +81,14 @@ public class AppPreferences {
         pref.put("db_name", name);
     }
 
+    public void setRootPath(String rootPath) {
+        pref.put("root_path", rootPath);
+    }
+
+    public String getRootPath() {
+        return pref.get("root_path", null);
+    }
+
     public String getUsername() {
         return pref.get("db_username", null);
     }

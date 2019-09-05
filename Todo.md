@@ -1,6 +1,7 @@
 # Todo List
 
 TODO: set favicon
+TODO: add readme
 
 ## 文件关联
 
