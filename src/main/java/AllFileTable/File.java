@@ -101,7 +101,7 @@ public class File {
 	}
 
     private File(Map<String, String[]> map) {
-        this.name = map.get("upload-file")[0];
+        //this.name = map.get("upload-path")[0];
         this.tag = map.get("tags")[0];
     }
 

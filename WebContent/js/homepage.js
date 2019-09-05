@@ -14,11 +14,18 @@ function checkUploadForm() {
         clearErrorMsg();
         
         var info = _checkUpload();
+        var formdata = new FormData();
         if (info.success == true) {
+            formdata.append("upload-path", $('#upload-path').val());
+            formdata.append("tags", $('#tags').val());
+            formdata.append("file", $('#upload-file').prop('files')[0]);
             $.ajax({
                 type: "POST",
                 url: 'IndexServlet',
-                data: $(this).serialize() + "&resquest=upload",
+                data: formdata,
+                cache: false,
+                processData: false,
+                contentType: false,
                 success: function(res) {
                     clearErrorMsg();
                     if (res.success == false) {

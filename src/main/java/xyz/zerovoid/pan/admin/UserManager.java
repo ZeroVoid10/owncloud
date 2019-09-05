@@ -3,6 +3,8 @@ package xyz.zerovoid.pan.admin;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import xyz.zerovoid.pan.dao.DAOFactory;
 import xyz.zerovoid.pan.dao.UserDao;
 import xyz.zerovoid.pan.vo.User;
@@ -33,13 +35,15 @@ public class UserManager {
         return userDao.doInsert(user);
     }
 
-    public int login(Map<String, String[]> map) throws SQLException {
+    public int login(Map<String, String[]> map, HttpSession session) throws SQLException {
         User user = userDao.findUser(map.get("mail")[0]);
         if (user == null) {
             return 2; // user mail does not register
         } else if (user.getPassword().compareTo(map.get("password")[0]) != 0) {
             return 1; // password incorrect
         }
+        session.setAttribute("uid", user.getUID());
+        session.setAttribute("username", user.getUsername());
         return 0;
     }
 }

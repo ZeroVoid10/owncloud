@@ -2,16 +2,23 @@ package xyz.zerovoid.pan.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.zerovoid.pan.admin.FileManager;
+import xyz.zerovoid.pan.admin.UserManager;
 
 /**
  * Servlet implementation class IndexServlet
@@ -44,7 +51,8 @@ public class IndexServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
         PrintWriter printer = response.getWriter();
-        if (request.getParameter("request").equals("upload")) {
+		boolean isMutipart = ServletFileUpload.isMultipartContent(request);
+        if (isMutipart) {
             printer.print(doUpload(request, response));
         }
         printer.flush();
@@ -54,7 +62,21 @@ public class IndexServlet extends HttpServlet {
     private String doUpload(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
         JSONObject json = new JSONObject();
-        Map<String, String[]> map = request.getParameterMap();
+	    FileManager fileManager = null;
+
+        try {
+			fileManager = new FileManager();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+            logger.error("Get file manager failed");
+		}
+
+        try {
+			fileManager.upload(request, response);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+            logger.error("upload file failed");
+		}
 
         return json.toString();
     }

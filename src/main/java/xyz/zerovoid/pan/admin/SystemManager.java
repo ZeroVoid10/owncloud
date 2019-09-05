@@ -1,5 +1,6 @@
 package xyz.zerovoid.pan.admin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class SystemManager {
     private DatabaseConnection baseManager;
     private Map<String, String[]> infoMap;
     private AppPreferences pref;
+    private String rootPath;
 
     public SystemManager() throws SQLException {
         baseManager = new DatabaseConnection();
@@ -40,19 +42,30 @@ public class SystemManager {
         // js已经检测过输入
         pref = AppPreferences.getInstance();
         infoMap = new HashMap<String, String[]>(map);
+        rootPath = infoMap.get("root_path")[0];
         addBaseInfo();
         baseManager = new DatabaseConnection();
     }
 
-    public void install() throws SQLException {
+    public void install() throws SQLException, IOException{
 	    UserManager userManager = null;
+        FileManager fileManager = null;
 		try {
 			CreateUserTable();
+            CreateFileInfoTable();
             userManager = new UserManager();
+            fileManager = new FileManager();
+            fileManager.initRoot(rootPath);
+            pref.setRootPath(rootPath);
 		} catch (SQLException e) {
-            logger.error("Create table failed.");
 			e.printStackTrace();
             pref.clear();
+            logger.error("Create table failed.");
+            throw e;
+		} catch (IOException e) {
+			e.printStackTrace();
+            pref.clear();
+            logger.error("Root path is not exit or is not a directory.");
             throw e;
 		}
         infoMap.put("group", new String[]{"root"});

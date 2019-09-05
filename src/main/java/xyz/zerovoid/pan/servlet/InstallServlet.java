@@ -77,7 +77,7 @@ public class InstallServlet extends HttpServlet {
         try {
             SystemManager manager = new SystemManager(map);
 			manager.install();
-		} catch (SQLException e) {
+		} catch (Exception e) {
             // 方便调试安装过程
             installed = false;
             json.put("installed", false);

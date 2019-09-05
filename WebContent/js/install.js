@@ -6,7 +6,7 @@ $(document).ready(function(){
         e.preventDefault();
         $("#install-msg").html("");
         var info = checkInstallForm();
-        var prompt = Array("type", "host", "port", "db_name", "username", "db_password", "mail", "password");
+        var prompt = Array("type", "host", "port", "db_name", "root_path", "username", "db_password", "mail", "password");
         if (info.success == true) {
             $.ajax({
                 type: 'POST',
@@ -45,6 +45,7 @@ function checkInstallForm() {
     var host = $("[name='db_host']").val();
     var port = $("[name='db_port']").val();
     port = parseInt(port);
+    var root_path = $("[name='root_path']");
     var db_name = $("[name='db_name']").val();
     var username = $("[name='db_username']").val();
     var db_password = $("[name='db_password']").val();
@@ -62,6 +63,9 @@ function checkInstallForm() {
     }
     if (db_name == '') {
         info.db_name = "请输入数据库名";
+    }
+    if (root_path == '') {
+        info.root_path = "请输入文件根目录";
     }
     if (username == '') {
         info.username = "请输入数据库用户名";

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -49,11 +50,12 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         JSONObject json = new JSONObject();
         Map<String, String[]> map = request.getParameterMap();
+        HttpSession session = request.getSession();
         int status = 1;
 
         try {
 			UserManager manager = new UserManager();
-            status = manager.login(map);
+            status = manager.login(map, session);
 		} catch (SQLException e) {
 			e.printStackTrace();
             logger.error("error in login.");

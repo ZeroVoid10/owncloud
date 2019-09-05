@@ -65,6 +65,14 @@
                 <div class="install-input-field">
                     <input type="text" name="db_name" placeholder="Database name" value="test">
                 </div>
+                
+                <div class="prompt">
+                    <div>文件存储根目录</div>
+                    <div class="error-msg" id="root_path"></div>
+                </div>
+                <div class="install-input-field">
+                    <input type="text" name="root_path" placeholder="File root path" value="/home/zerovoid/Downloads/pan/">
+                </div>
 
                 <div class="prompt">
                     <div>数据库用户名</div>

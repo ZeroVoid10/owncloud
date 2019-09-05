@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% if (application.getAttribute("installed") == null) {%>
+    <jsp:forward page="install"/>
+<% } %>
 <%@ page import = "hp.fileRead.*"
 import = "hp.project.*"
 import = "java.lang.*"
@@ -219,20 +222,20 @@ import = "java.util.*" %>
                         </a>
                         <div id="upload-div"
                             style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
-                            <form id='upload-form' name='upload' style='padding-left: 6px;'>
+                            <form id='upload-form' enctype="multipart/form-data" style='padding-left: 6px;'>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传路径：
                                 </div>
-                                <input type='text' name='projectName' id='upload-path' /><br />
+                                <input type='text' name='upload-path' id='upload-path' /><br />
                                 <div id='upload-error-path' style="color: red"></div>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     文件标签：
                                 </div>
-                                <input type='text' name='fileTag' id='tags' /><br />
+                                <input type='text' name='tags' id='tags' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传文件：
                                 </div>
-                                <input type='file' name='upFile' id='file' /><br /><br />
+                                <input type='file' name='upFile' id='upload-file' /><br /><br />
                                 <div id='upload-error-file' style="color: red"></div>
                                 <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
                                     id='upload-button' value='上传'>
