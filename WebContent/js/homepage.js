@@ -363,6 +363,10 @@ function clickSearch(e) {
     e.stopPropagation();
 }
 
+function DownLoad(){
+	checkpath();//获取路径
+}
+
 function getmore() {
   alert("更多功能研发(摸鱼)中，敬请期待Σ(ﾟдﾟ)");
 }

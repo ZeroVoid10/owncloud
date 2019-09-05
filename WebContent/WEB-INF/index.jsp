@@ -33,6 +33,7 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
 
     <script type="text/javascript" src="js/homepage.js"></script>
+    <script type="text/javascript" src="js/homepage-aside.js"></script>
     <script type="text/javascript" src="js/fileload.js"></script>
 
 </head>
@@ -45,7 +46,7 @@ import = "java.util.*" %>
             <div class="module-aside menu">
                 <ul class="menu">
                     <li>
-                        <a path="/" hidefocus="true">
+                        <a onclick="allFile();" hidefocus="true">
                             <span class="text">
                                 <i class="fas fa-file-alt"></i>
                                 <span>全部文件</span>
@@ -53,7 +54,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allPicture();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-image"></i>
                                 <span>图片</span>
@@ -61,7 +62,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allText();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file"></i>
                                 <span>文档</span>
@@ -69,7 +70,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allVideo();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file-video"></i>
                                 <span>视频</span>
@@ -77,7 +78,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allMusic();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file-audio"></i>
                                 <span>音乐</span>
@@ -85,7 +86,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allOthers();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-bars"></i>
                                 <span>其他</span>
@@ -93,7 +94,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="trashBin();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-trash"></i>
                                 <span>回收站</span>
@@ -285,7 +286,7 @@ import = "java.util.*" %>
                             </form>
                         </div>
                         <!-- 下载文件 -->
-                        <a class="g-button" title="下载文件" onclick="checkpath();" style="display: inline-block;"><span
+                        <a class="g-button" title="下载文件" onclick="Download();" style="display: inline-block;"><span
                                 class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-download"></i>
