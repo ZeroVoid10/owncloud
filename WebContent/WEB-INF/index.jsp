@@ -36,6 +36,8 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
 
     <script type="text/javascript" src="js/homepage.js"></script>
+    <script type="text/javascript" src="js/homepage-aside.js"></script>
+    <script type="text/javascript" src="js/fileload.js"></script>
 
 </head>
 
@@ -47,7 +49,7 @@ import = "java.util.*" %>
             <div class="module-aside menu">
                 <ul class="menu">
                     <li>
-                        <a path="/" hidefocus="true">
+                        <a onclick="allFile();" hidefocus="true">
                             <span class="text">
                                 <i class="fas fa-file-alt"></i>
                                 <span>全部文件</span>
@@ -55,7 +57,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allPicture();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-image"></i>
                                 <span>图片</span>
@@ -63,7 +65,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allText();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file"></i>
                                 <span>文档</span>
@@ -71,7 +73,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allVideo();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file-video"></i>
                                 <span>视频</span>
@@ -79,7 +81,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allMusic();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-file-audio"></i>
                                 <span>音乐</span>
@@ -87,7 +89,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="allOthers();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-bars"></i>
                                 <span>其他</span>
@@ -95,7 +97,7 @@ import = "java.util.*" %>
                         </a>
                     </li>
                     <li class="menuTip">
-                        <a hidefocus="true" href="">
+                        <a onclick="trashBin();" hidefocus="true" href="">
                             <span class="text">
                                 <i class="fas fa-trash"></i>
                                 <span>回收站</span>
@@ -134,23 +136,25 @@ import = "java.util.*" %>
                                     搜索文件</span></span></a>
                         <div id="search-div"
                             style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
-                            <form action='' name='search' style='padding-left: 6px;'>
+                            <form action='' id="search-form" name='search' style='padding-left: 6px;'>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     路径：
                                 </div>
-                                <input name='upload-path' id='searchproject' /><br />
+                                <input name='search-path' id='search-project' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     文件标签：
                                 </div>
-                                <input name='fileTag' id='searchtag' /><br />
+                                <input name='searchTag' id='search-tag' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传人UID：
                                 </div>
-                                <input name='personUID' id='searchuid' /><br />
+                                <input name='searchpersonUID' id='search-uid' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     文件名称：
                                 </div>
-                                <input name='filename' id='searchfile' /><br /><br />
+                                <input name='searchfilename' id='search-file' /><br />
+                                <div id='search-error' style="color: red"></div>
+                                <br />
                                 <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
                                     id='upload' value='搜索文件' onclick='return CheckSearch();'>
                             </form>
@@ -185,11 +189,13 @@ import = "java.util.*" %>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     项目名称：
                                 </div>
-                                <input name='projectName' id='project' /><br />
+                                <input name='projectName' id='adduser-project' /><br />
+                                <div id='adduser-error-project' style="color: red"></div>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     项目成员UID：
                                 </div>
                                 <input name='username' id='username' /><br />
+                                <div id='adduser-error-user' style="color: red"></div>
                                 <label>
                                     <input id='selectadd' type='radio' value='add' checked='true'
                                         onclick='addselect();' />
@@ -207,7 +213,6 @@ import = "java.util.*" %>
                 </div>
                 <!-- 文件按键 -->
                 <div class="button" style="white-space: nowrap; position: relative;width:1000px">
-
                     <div
                         style="position: absolute; top: 0px; line-height: normal; padding-top: 11px; padding-left: 0px; width: auto;">
                         <!-- 上传文件 -->
@@ -238,23 +243,52 @@ import = "java.util.*" %>
                                 <input type='file' name='upFile' id='upload-file' /><br /><br />
                                 <div id='upload-error-file' style="color: red"></div>
                                 <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
-                                    id='upload-button' value='上传'>
+                                     value='上传'>
                             </form>
 
                         </div>
                         <!-- 新建文件夹-->
-                        <a class="g-button" title="新建项目" style="display: inline-block;"><span class="g-button-right">
+                        <a class="g-button" title="新建文件夹" id="folder-button" style="display: inline-block;"><span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-folder-plus"></i>
                                     新建文件夹</span></span></a>
+                        <div id="folder-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff; display: none;border: 1px solid #0098ea;border-radius: 4px;margin-left:123px;">
+                            <form action=''  id='folder-form' name='folder' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    路径：
+                                </div>
+                                <input name='folder-path' id='folder-path' /><br />
+                                <div id='folder-error-path' style="color: red"></div>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    文件夹名称：
+                                </div>
+                                <input name='foldername' id='folder-name' /><br />
+                                <div id='folder-error-file' style="color: red"></div><br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                     value='新建文件夹' onclick='return CheckSearch();'>
+                            </form>
+                        </div>
                         <!-- 新建项目 -->
-                        <a class="g-button" title="新建项目" onclick="createproject()" style="display: inline-block;"><span
+                        <a class="g-button" title="新建项目" id="project-button" style="display: inline-block;"><span
                                 class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-tasks"></i>
                                     新建项目</span></span></a>
+                        <div id="project-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff; display: none;border: 1px solid #0098ea;border-radius: 4px;margin-left:255px;">
+                            <form action=''  id='project-form' name='project' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    项目名称：
+                                </div>
+                                <input name='projectname' id='project-name' /><br />
+                                <div id='project-error-file' style="color: red"></div><br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                     value='新建项目' onclick='return CheckSearch();'>
+                            </form>
+                        </div>
                         <!-- 下载文件 -->
-                        <a class="g-button" title="下载文件" onclick="checkpath();" style="display: inline-block;"><span
+                        <a class="g-button" title="下载文件" onclick="Download();" style="display: inline-block;"><span
                                 class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-download"></i>
@@ -316,7 +350,7 @@ import = "java.util.*" %>
                     <div class="filelist" style="height: auto;">
                         <% 
                                                     fileGet flg = new fileGet();
-                                                    flg.setprojectPath("/home/zerovoid");
+                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\UpLoad");
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
@@ -369,13 +403,39 @@ import = "java.util.*" %>
                         <span class="header-label">
                             <a href="" target="_self" title="更多" node-type="item-title">更多</a>
                         </span>
+                        <span class="header-label" style="color:#333;font-size:10px;margin-left:500px;margin-right:0px;">
+                        <ul style="margin-top:-10px;">
+                            <li style="width:40px;height:15px;">
+                            <div>用户名：</div>
+                            </li>
+                            <li style="width:40px;height:15px;">
+                            <div>U  I  D：</div>
+                            </li>
+                            <li style="width:40px;height:15px;">
+                            <div>邮     箱：</div>
+                            </li>
+                        </ul>
+                        </span>
+                        <span class=" header-label" style="color:#333;font-size:10px;">
+                        <ul style="margin-top:-10px;">
+                            <li style="width:100px;height:15px;">
+                            <div>世博元</div>
+                            </li>
+                            <li style="width:100px;height:15px;">
+                            <div>7777777</div>
+                            </li>
+                            <li style="width:100px;height:15px;">
+                            <div>邮箱@163.com</div>
+                            </li>
+                        </ul>
+                        </span>
                     </dd>
                 </dl>
             </div>
         </div>
     </div>
     <div>
-
+??????
     </div>
     </div>
 </body>
