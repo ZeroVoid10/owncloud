@@ -17,7 +17,7 @@ function checkUploadForm() {
         if (info.success == true) {
             $.ajax({
                 type: "POST",
-                url: 'UploadServlet',
+                url: 'IndexServlet',
                 data: $(this).serialize() + "&resquest=upload",
                 success: function(res) {
                     clearErrorMsg();

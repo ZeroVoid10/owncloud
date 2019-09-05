@@ -39,6 +39,20 @@ public class FileManagement {
                 System.err.println("File "  + name + " existed");    
         }
      }
+
+    public void add_file(File file) {
+        add_file(
+                file.getHash(),
+                file.getName(),
+                file.getKind(),
+                file.getDir(),
+                file.getSize(),
+                file.getUploader_UID(),
+                file.getTag()
+                );
+    }
+
+
     
     public File getFile(int Hash) {
         String sql ="SELECT * FROM test_file.allfiles WHERE Hash = " + Hash + ";";
