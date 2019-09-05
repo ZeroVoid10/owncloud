@@ -33,6 +33,7 @@ import = "java.util.*" %>
     <link rel="stylesheet" type="text/css" href="css/disk.header.css">
 
     <script type="text/javascript" src="js/homepage.js"></script>
+    <script type="text/javascript" src="js/fileload.js"></script>
 
 </head>
 
@@ -131,23 +132,25 @@ import = "java.util.*" %>
                                     搜索文件</span></span></a>
                         <div id="search-div"
                             style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
-                            <form action='' name='search' style='padding-left: 6px;'>
+                            <form action='' id="search-form" name='search' style='padding-left: 6px;'>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     路径：
                                 </div>
-                                <input name='upload-path' id='searchproject' /><br />
+                                <input name='search-path' id='search-project' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     文件标签：
                                 </div>
-                                <input name='fileTag' id='searchtag' /><br />
+                                <input name='searchTag' id='search-tag' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传人UID：
                                 </div>
-                                <input name='personUID' id='searchuid' /><br />
+                                <input name='searchpersonUID' id='search-uid' /><br />
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     文件名称：
                                 </div>
-                                <input name='filename' id='searchfile' /><br /><br />
+                                <input name='searchfilename' id='search-file' /><br />
+                                <div id='search-error' style="color: red"></div>
+                                <br />
                                 <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
                                     id='upload' value='搜索文件' onclick='return CheckSearch();'>
                             </form>
@@ -182,11 +185,13 @@ import = "java.util.*" %>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     项目名称：
                                 </div>
-                                <input name='projectName' id='project' /><br />
+                                <input name='projectName' id='adduser-project' /><br />
+                                <div id='adduser-error-project' style="color: red"></div>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     项目成员UID：
                                 </div>
                                 <input name='username' id='username' /><br />
+                                <div id='adduser-error-user' style="color: red"></div>
                                 <label>
                                     <input id='selectadd' type='radio' value='add' checked='true'
                                         onclick='addselect();' />
@@ -218,7 +223,7 @@ import = "java.util.*" %>
                             </span>
                         </a>
                         <div id="upload-div"
-                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;">
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff;display: none;border: 1px solid #0098ea;border-radius: 4px;margin-left:4px;">
                             <form id='upload-form' name='upload' style='padding-left: 6px;'>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传路径：
@@ -232,24 +237,53 @@ import = "java.util.*" %>
                                 <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
                                     上传文件：
                                 </div>
-                                <input type='file' name='upFile' id='file' /><br /><br />
-                                <div id='upload-error-file' style="color: red"></div>
+                                <input type='file' name='upFile' id='file' /><br />
+                                <div id='upload-error-file' style="color: red"></div><br />
                                 <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
-                                    id='upload-button' value='上传'>
+                                     value='上传'>
                             </form>
 
                         </div>
                         <!-- 新建文件夹-->
-                        <a class="g-button" title="新建项目" style="display: inline-block;"><span class="g-button-right">
+                        <a class="g-button" title="新建文件夹" id="folder-button" style="display: inline-block;"><span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-folder-plus"></i>
                                     新建文件夹</span></span></a>
+                        <div id="folder-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff; display: none;border: 1px solid #0098ea;border-radius: 4px;margin-left:123px;">
+                            <form action=''  id='folder-form' name='folder' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    路径：
+                                </div>
+                                <input name='folder-path' id='folder-path' /><br />
+                                <div id='folder-error-path' style="color: red"></div>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    文件夹名称：
+                                </div>
+                                <input name='foldername' id='folder-name' /><br />
+                                <div id='folder-error-file' style="color: red"></div><br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                     value='新建文件夹' onclick='return CheckSearch();'>
+                            </form>
+                        </div>
                         <!-- 新建项目 -->
-                        <a class="g-button" title="新建项目" onclick="createproject()" style="display: inline-block;"><span
+                        <a class="g-button" title="新建项目" id="project-button" style="display: inline-block;"><span
                                 class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-tasks"></i>
                                     新建项目</span></span></a>
+                        <div id="project-div"
+                            style="border: 1;position: absolute;width: 200;height: 200; background:#ffffff; display: none;border: 1px solid #0098ea;border-radius: 4px;margin-left:255px;">
+                            <form action=''  id='project-form' name='project' style='padding-left: 6px;'>
+                                <div style='color:#0080ff;font-size:13px;padding-top: 4px;padding-bottom: 4px;'>
+                                    项目名称：
+                                </div>
+                                <input name='projectname' id='project-name' /><br />
+                                <div id='project-error-file' style="color: red"></div><br />
+                                <input class='uploadbutton' style='color:#ffffff;margin-bottom:10px' type='submit'
+                                     value='新建项目' onclick='return CheckSearch();'>
+                            </form>
+                        </div>
                         <!-- 下载文件 -->
                         <a class="g-button" title="下载文件" onclick="checkpath();" style="display: inline-block;"><span
                                 class="g-button-right">
