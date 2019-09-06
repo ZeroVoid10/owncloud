@@ -1,9 +1,12 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        
+</head>
 <body>
     <div class="owncloud-wrap">
         <div class="admin-background">
@@ -43,5 +46,4 @@
     </div>
 
 </body>
-</head>
 </html>
