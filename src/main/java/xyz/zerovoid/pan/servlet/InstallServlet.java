@@ -2,7 +2,6 @@ package xyz.zerovoid.pan.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;

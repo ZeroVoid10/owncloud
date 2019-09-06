@@ -29,10 +29,10 @@
             <div class="container-login">
                 <form id="login">
                     <div class="input-field" id="login">
-                        <input type="text" name="mail" autocomplete="mail address" placeholder="邮箱地址">
+                        <input type="text" name="mail" autocomplete="mail address" placeholder="邮箱地址" value="2@a.com">
                     </div>
                     <div class="input-field" id="login">
-                        <input type="password" name="password" autocomplete="current-password" placeholder="密码">
+                        <input type="password" name="password" autocomplete="current-password" placeholder="密码" value="123">
                     </div>
                     <ul class="error-msg-list" id="error-msg"></ul>
                     <button type="submit" class="login-form_submit">登入</button>

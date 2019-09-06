@@ -7,18 +7,18 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
+import xyz.zerovoid.pan.util.AppPreferences;
 
 /**
- * Servlet Filter implementation class LoginFilter
+ * Servlet Filter implementation class InstallFilter
  */
-public class LoginFilter implements Filter {
+public class InstallFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LoginFilter() {
+    public InstallFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -33,13 +33,17 @@ public class LoginFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpSession session = req.getSession();
-        if (session.getAttribute("uid") != null) {
-            request.getRequestDispatcher("/index");
+		// TODO Auto-generated method stub
+		// place your code here
+		AppPreferences pref = AppPreferences.getInstance();
+        if (pref.getInstalled() == null) {
+            request.getRequestDispatcher("/install");
         } else {
-            request.getRequestDispatcher("/login");
+		    chain.doFilter(request, response);
         }
+
+		// pass the request along the filter chain
+		//chain.doFilter(request, response);
 	}
 
 	/**

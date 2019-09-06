@@ -348,33 +348,32 @@ import = "java.util.*" %>
                 </div>
                 <div class="table-main" style="overflow-y: auto; height: 726px;">
                     <div class="filelist" style="height: auto;">
-                        <% 
-                                                    fileGet flg = new fileGet();
-                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\UpLoad");
-                                                    flg.getFileName();
-                                                    List<String>nl = flg.getNameList();
-                                                    List<String>sl = flg.getSizeList();
-                                                    List<String>dl = flg.getDateList();
-                                                    List<String>pl = flg.getPathList();
-                                                    List<String>cl = flg.getChangeList();
-                                                    int len = nl.size();
-        
-                                                    for(int i = 0;i<len;i++){ %>
-                        <dd class="g-clearfix filelable open-enable"><span class="checkboxlabel"><input name="boxes[]"
-                                    onclick="checkall()" type="checkbox" id="check"
-                                    value="<%= pl.get(i) %>" /></span></span>
-                            <div class="file-img dir-small"><img src="img/<%= cl.get(i) %>.png"
-                                    style="width:26px;height:26px;"></div>
-                            <div class="file-name" style="width:50%">
-                                <div class="text"><a href="<%= pl.get(i) %>"
-                                        title="<%= nl.get(i) %>"><%= nl.get(i) %></a></div>
-                            </div>
-                            <div class="file-size" style="width:16%"><%= sl.get(i) %></div>
-                            <div class="file-date" style="width:23%"><%= dl.get(i) %></div>
-                            <div class="file-date" style="width:10%">灰原哀</div>
-                        </dd>
 
-                        <% } %>
+                        <textarea style="display: none;">
+                        <dd class="g-clearfix filelable open-enable" data-id="$fileinfo-id$">
+                            <span class="checkboxlabel">
+                                <input name="boxes[]"
+                                    onclick="checkall()" type="checkbox" id="check"
+                                    value="$dir$" />
+                                </span>
+                            </span>
+                            <div class="file-img dir-small">
+                                <img src="$imgsrc$"
+                                    style="width:26px;height:26px;">
+                                </div>
+                            <div class="file-name" style="width:50%">
+                                <div class="text">
+                                    <a href="$filename-a$"
+                                        title="$filename-title$">$filename$</a></div>
+                            </div>
+                            <div class="file-size" style="width:16%">$size$</div>
+                            <div class="file-date" style="width:23%">$date$</div>
+                            <div class="file-date" style="width:10%">$uploaduser$</div>
+                        </dd>
+                        </textarea>
+
+
+
                     </div>
                 </div>
             </div>

@@ -76,7 +76,10 @@ public class IndexServlet extends HttpServlet {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
             logger.error("upload file failed");
-		}
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error("insert to database failed");
+        }
 
         return json.toString();
     }

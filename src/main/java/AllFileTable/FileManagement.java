@@ -26,21 +26,15 @@ public class FileManagement {
         mConnect = dbc.getConnection();
     }
     
-    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID, String tag) {
-        try {
+    public void add_file(int Hash, String name, String kind, String dir, String size, int uploader_UID, String tag) throws SQLException {
             Statement statement =mConnect.createStatement();
-            String sql ="INSERT INTO test_file.allfiles(Hash, name, kind, dir, size, uploader_UID, upload_time, tag) VALUES (" + Hash + ",'"+
+            String sql ="INSERT INTO allfiles(Hash, name, kind, dir, size, uploader_UID, upload_time, tag) VALUES (" + Hash + ",'"+
                 name+"','"+kind+"','"+dir+"','" + size + "'," + uploader_UID + ",now(),'" + tag + "');";
             statement.executeUpdate(sql);
             statement.close();
-            System.out.println("file " + name + " added");
-        } catch (SQLException e) {
-            if(e.getMessage().contains("PRIMARY")) 
-                System.err.println("File "  + name + " existed");    
-        }
      }
 
-    public void add_file(File file) {
+    public void add_file(File file) throws SQLException {
         add_file(
                 file.getHash(),
                 file.getName(),
@@ -55,7 +49,7 @@ public class FileManagement {
 
     
     public File getFile(int Hash) {
-        String sql ="SELECT * FROM test_file.allfiles WHERE Hash = " + Hash + ";";
+        String sql ="SELECT * FROM allfiles WHERE Hash = " + Hash + ";";
         String log;
         try {
             Statement statement =mConnect.createStatement();
@@ -111,7 +105,7 @@ public class FileManagement {
     public int update_file_info(int Hash, String keyword, String new_info) {
     	int result =-1;
     	try {
-            String sql="UPDATE test_file.allfiles SET " + keyword + "= '"+new_info+ "' WHERE Hash = '"+Hash+"';";
+            String sql="UPDATE allfiles SET " + keyword + "= '"+new_info+ "' WHERE Hash = '"+Hash+"';";
             File file =getFile(Hash);
             if(file != null) {
             	Statement statement =mConnect.createStatement();
@@ -128,7 +122,7 @@ public class FileManagement {
     
     public void delete_file(int Hash) {
     	try {
-            String sql="DELETE FROM test_file.allfiles WHERE Hash = '"+Hash+"';";
+            String sql="DELETE FROM allfiles WHERE Hash = '"+Hash+"';";
             File file =getFile(Hash);
             if(file != null) {
             	Statement statement =mConnect.createStatement();
@@ -146,9 +140,9 @@ public class FileManagement {
     	try {
     		String sql = null;
     		if(ASC) 
-    			sql = "SELECT Hash FROM test_file.allfiles ORDER BY " + keyword + ";";
+    			sql = "SELECT Hash FROM allfiles ORDER BY " + keyword + ";";
     		else
-    			sql = "SELECT Hash FROM test_file.allfiles ORDER BY " + keyword + " DESC;";
+    			sql = "SELECT Hash FROM allfiles ORDER BY " + keyword + " DESC;";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
@@ -162,7 +156,7 @@ public class FileManagement {
     public List<File> search_file(String keyword, String input) {
     	List<File> files = new ArrayList<File>();
     	try {
-    		String sql = "SELECT Hash FROM test_file.allfiles WHERE " + keyword + " like '%" + input + "%';";
+    		String sql = "SELECT Hash FROM allfiles WHERE " + keyword + " like '%" + input + "%';";
     		Statement statement =mConnect.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
@@ -177,7 +171,7 @@ public class FileManagement {
     
     public List<File> mult_search_file(String name, String kind, String uploader_UID, String tag) {
     	List<File> files = new ArrayList<File>();
-    	String sql = "SELECT Hash FROM test_file.allfiles";
+    	String sql = "SELECT Hash FROM allfiles";
     	try {
     		if(name != "")
     			sql += (" WHERE name like '%" + name + "%'");

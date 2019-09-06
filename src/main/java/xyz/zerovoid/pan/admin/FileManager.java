@@ -57,16 +57,25 @@ public class FileManager {
     /**
      * @author hp
      * @throws UnsupportedEncodingException
+     * @throws SQLException
      */
-    public void upload(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
+    public void upload(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, SQLException{
         //Map<String, String[]> map = new HashMap<String, String[]>(request.getParameterMap());
         HttpSession session = request.getSession();
         //File file = File.form2File(map);
         Path path = Paths.get(rootPath, folder.getName());
         File file = File.getNewFile();
-        file.setDir(path.relativize(Paths.get(rootPath)).toString())
+        file.setDir(path.relativize(Paths.get(rootPath)).toString());
             //.setUploader_UID(((User)session.getAttribute("user")).getUID());
-            .setUploader_UID(1);
+        int uid ;
+        if (session.getAttribute("uid") == null) {
+            file.setUploader_UID(2);
+        } else {
+            file.setUploader_UID((int)session.getAttribute("uid"));
+        }
+        if (file.getDir().equals("")) {
+            file.setDir("/");
+        }
 
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
@@ -79,20 +88,27 @@ public class FileManager {
             Iterator<FileItem> iter = items.iterator();
             while(iter.hasNext()) {
                 FileItem item = iter.next();
-                String upload_path = null;
+                String description = null;
                 String fileTag = null;
                 if(item.isFormField()) {
-                    if(item.getFieldName().equals("upload-path")) {
-                        upload_path = item.getString("UTF-8");
+                    if(item.getFieldName().equals("description")) {
+                        description = item.getString("UTF-8");
                     }else if(item.getFieldName().equals("tags")) {
                         fileTag = item.getString("UTF-8");
                         file.setTag(fileTag);
-                    }
+                    } else if (item.getFieldName().equals("filename")) {
+                        file.setName(item.getString("UTF-8"));
+                    } else if (item.getFieldName().equals("suffix")) {
+                        file.setKind(item.getString("UTF-8"));
+                    } else if (item.getFieldName().equals("filesize")) {
+                        file.setSize(item.getString("UTF-8"));
+                    } 
                 }else if(item.getFieldName().equals("file")) {
+                    /*
                     String fileName = item.getName();
                     fileName=fileName.substring(fileName.lastIndexOf("\\")+1);
-                    file.setName(fileName);
-                    java.io.File newFile = new java.io.File(path.toString(),fileName);
+                    file.setName(fileName); */
+                    java.io.File newFile = new java.io.File(path.toString(),file.getName());
                     
                     try {
                         item.write(newFile);
@@ -105,7 +121,6 @@ public class FileManager {
             e.printStackTrace();
 		}
         file.setHash(Paths.get(file.getDir(), file.getName()).hashCode());
-        file.setKind("pdf").setSize("2MB");
 
         fileDao.add_file(file);
     }

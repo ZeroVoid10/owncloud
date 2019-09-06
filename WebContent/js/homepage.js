@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    getfileinfo();
     checkUploadButton();
     checkFolderButton();
     checkProjectButton();
@@ -11,8 +12,23 @@ $(document).ready(function() {
     checkAddUserForm();
 });
 
-$(document).ready(function() {
-});
+function getfileinfo() {
+    $.ajax({
+        type: 'GET',
+        url: 'IndexServlet',
+        data: "request=fileinfo",
+        success: function(res) {
+            showfileinfo();
+        }, 
+        error: function() {
+            alert('failed');
+        }
+    })
+}
+
+function showfileinfo() {
+
+}
 
 function checkUploadForm() {
     $('#upload-form').submit(function(e) {
@@ -22,9 +38,14 @@ function checkUploadForm() {
         var info = _checkUpload();
         var formdata = new FormData();
         if (info.success == true) {
-            formdata.append("upload-path", $('#upload-path').val());
+            var file = $('#upload-file').prop('files')[0];
+            var filename = file.name;
+            formdata.append("description", $('#upload-path').val());
             formdata.append("tags", $('#tags').val());
-            formdata.append("file", $('#upload-file').prop('files')[0]);
+            formdata.append("suffix", filename.substr(filename.lastIndexOf(".")+1).toLowerCase());
+            formdata.append("filename", filename);
+            formdata.append("filesize", file.size);
+            formdata.append("file", file);
             $.ajax({
                 type: "POST",
                 url: 'IndexServlet',
