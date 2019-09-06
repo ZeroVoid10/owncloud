@@ -5,6 +5,9 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/admin.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
         
 </head>
 <body>
@@ -23,14 +26,14 @@
             <div class="container-login">
                 <form id="register">
                     <div class="input-field" id="register">
-                        <input type="text" name="用户名" placeholder="用户名">
-                    </div>
+                        <input type="text" name="username" placeholder="用户名">
+                    </div><br>
                     <div class="input-field" id="register">
-                        <input type="email" name="电子邮箱" placeholder="电子邮箱">
-                    </div>
+                        <input type="email" name="email" placeholder="电子邮箱">
+                    </div><br>
                     <div class="input-field" id="register">
-                        <input type="password" name="密码" placeholder="密码">
-                    </div>
+                        <input type="password" name="password" placeholder="密码">
+                    </div><br>
                     <ul class="error-msg-list" id="error-msg"></ul>
                     <button type="submit" class="login-form_submit">注册</button>
                     <div class="login-form-nav">
