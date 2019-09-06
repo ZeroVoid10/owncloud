@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONObject;
 
 import AllFileTable.File;
 import AllFileTable.FileManagement;
@@ -38,11 +40,31 @@ public class FileManager {
     private FileManagement fileDao = null;
     private Folder folder = null;
     private String rootPath;
+    private static final String salt = "JamesHpZeroVoid";
 
     public FileManager () throws SQLException, IOException {
         this.fileDao = DAOFactory.getFileDAO();
         folder = new Folder("/");
         rootPath = AppPreferences.getInstance().getRootPath();
+    }
+
+    public JSONObject getFileInfo() {
+        ArrayList<File> list = folder.getFileList();
+        JSONObject json = new JSONObject();
+        ArrayList<JSONObject> info = new ArrayList<JSONObject>();
+        for(File f : list) {
+            JSONObject singleinfo = new JSONObject();
+            singleinfo.put("fileinfoid", Paths.get(rootPath, f.getDir()+f.getName()+salt).hashCode());
+            singleinfo.put("dir", f.getDir())
+                .put("imgsrc", "img/" + f.getKind() + ".png")
+                .put("filename", f.getName())
+                .put("size", f.getSize())
+                .put("data", f.getUpload_time())
+                .put("uploaduser", f.getUploader_UID());
+            info.add(singleinfo);
+        }
+        json.put("fileinfo", info);
+        return json;
     }
 
     public void initRoot(String path) throws IOException {

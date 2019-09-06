@@ -1,4 +1,5 @@
 $(document).ready(function() {
+   
     getfileinfo();
     checkUploadButton();
     checkFolderButton();
@@ -18,16 +19,30 @@ function getfileinfo() {
         url: 'IndexServlet',
         data: "request=fileinfo",
         success: function(res) {
-            showfileinfo();
+            showfileinfo(res);
         }, 
         error: function() {
-            alert('failed');
+            alert('failed get fileinfo');
         }
     })
 }
 
-function showfileinfo() {
+String.prototype.temp = function(obj) {
+    return this.replace(/\$\w+\$/gi, function(matchs) {
+        var returns = obj[matchs.replace(/\$/g, "")];		
+        return (returns + "") == "undefined"? "": returns;
+    });
+};
 
+function showfileinfo(info) {
+    var htmlList = '';
+    var htmltemp = $("textarea").val();
+    if (info.hasOwnProperty("fileinfo")) {
+        info.fileinfo.forEach(function(object) {
+            htmlList += htmltemp.temp(object);
+        });
+        $('#fileinfo').html(htmlList);
+    }
 }
 
 function checkUploadForm() {
@@ -60,6 +75,7 @@ function checkUploadForm() {
                     } else {
                         $('#upload-div').hide();
                     }
+                    getfileinfo();
                 },
                 error: function() {
                     alert('upload error');

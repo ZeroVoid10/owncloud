@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ public class IndexServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+        doPost(request, response);
 	}
 
 	/**
@@ -53,7 +54,14 @@ public class IndexServlet extends HttpServlet {
         PrintWriter printer = response.getWriter();
 		boolean isMutipart = ServletFileUpload.isMultipartContent(request);
         if (isMutipart) {
+            logger.info("upload file");
             printer.print(doUpload(request, response));
+        } else {
+            Map<String, String[]> map = new HashMap(request.getParameterMap()); 
+            if (map.get("request")[0].equals("fileinfo")) {
+                logger.info("get file list");
+                printer.print(getFileInfo(request, response));
+            } 
         }
         printer.flush();
         printer.close();
@@ -79,6 +87,21 @@ public class IndexServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("insert to database failed");
+        }
+
+        return json.toString();
+    }
+
+    private String getFileInfo(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("application/json");
+        JSONObject json = null;
+	    FileManager fileManager = null;
+
+        try {
+            fileManager = new FileManager();
+            json = fileManager.getFileInfo();
+        } catch(Exception e){
+            e.printStackTrace();
         }
 
         return json.toString();

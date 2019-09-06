@@ -346,11 +346,9 @@ import = "java.util.*" %>
 
                     </div>
                 </div>
-                <div class="table-main" style="overflow-y: auto; height: 726px;">
-                    <div class="filelist" style="height: auto;">
-
-                        <textarea style="display: none;">
-                        <dd class="g-clearfix filelable open-enable" data-id="$fileinfo-id$">
+                <textarea style="display: none;">
+                        <dd class="g-clearfix filelable open-enable" data-id="$fileinfoid$">
+                            <span></span>
                             <span class="checkboxlabel">
                                 <input name="boxes[]"
                                     onclick="checkall()" type="checkbox" id="check"
@@ -363,17 +361,16 @@ import = "java.util.*" %>
                                 </div>
                             <div class="file-name" style="width:50%">
                                 <div class="text">
-                                    <a href="$filename-a$"
-                                        title="$filename-title$">$filename$</a></div>
+                                    <a href="$filenamea$"
+                                        title="$filenametitle$">$filename$</a></div>
                             </div>
                             <div class="file-size" style="width:16%">$size$</div>
                             <div class="file-date" style="width:23%">$date$</div>
                             <div class="file-date" style="width:10%">$uploaduser$</div>
                         </dd>
-                        </textarea>
-
-
-
+                    </textarea>
+                <div class="table-main" style="overflow-y: auto; height: 726px;">
+                    <div id='fileinfo' class="filelist" style="height: auto;">
                     </div>
                 </div>
             </div>
@@ -432,9 +429,6 @@ import = "java.util.*" %>
                 </dl>
             </div>
         </div>
-    </div>
-    <div>
-??????
     </div>
     </div>
 </body>
