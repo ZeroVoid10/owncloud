@@ -2,11 +2,6 @@
 <% if (application.getAttribute("installed") == null) {%>
     <jsp:forward page="install"/>
 <% } %>
-<%@ page import = "hp.fileRead.*"
-import = "hp.project.*"
-import = "java.lang.*"
-import = "java.io.*"
-import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 
@@ -415,13 +410,19 @@ import = "java.util.*" %>
                         <span class=" header-label" style="color:#333;font-size:10px;">
                         <ul style="margin-top:-10px;">
                             <li style="width:100px;height:15px;">
-                            <div>世博元</div>
+                            <div>
+                                <%=session.getAttribute("username")%>
+                            </div>
                             </li>
                             <li style="width:100px;height:15px;">
-                            <div>7777777</div>
+                            <div>
+                                <%=session.getAttribute("uid")%>
+                            </div>
                             </li>
                             <li style="width:100px;height:15px;">
-                            <div>邮箱@163.com</div>
+                            <div>
+                                <%=session.getAttribute("mail")%>
+                            </div>
                             </li>
                         </ul>
                         </span>

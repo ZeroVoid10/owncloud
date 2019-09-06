@@ -44,6 +44,7 @@ public class UserManager {
         }
         session.setAttribute("uid", user.getUID());
         session.setAttribute("username", user.getUsername());
+        session.setAttribute("mail", user.getMail());
         return 0;
     }
 }

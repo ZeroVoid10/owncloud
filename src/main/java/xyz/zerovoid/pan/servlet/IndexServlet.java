@@ -69,6 +69,7 @@ public class IndexServlet extends HttpServlet {
 
     private String doUpload(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         JSONObject json = new JSONObject();
 	    FileManager fileManager = null;
 
@@ -94,6 +95,7 @@ public class IndexServlet extends HttpServlet {
 
     private String getFileInfo(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         JSONObject json = null;
 	    FileManager fileManager = null;
 

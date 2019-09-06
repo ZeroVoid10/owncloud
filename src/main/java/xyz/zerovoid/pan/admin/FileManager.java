@@ -23,10 +23,13 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import AllFileTable.File;
 import AllFileTable.FileManagement;
 import xyz.zerovoid.pan.dao.DAOFactory;
+import xyz.zerovoid.pan.dao.UserDao;
 import xyz.zerovoid.pan.util.AppPreferences;
 import xyz.zerovoid.pan.util.Folder;
 import xyz.zerovoid.pan.vo.User;
@@ -36,19 +39,23 @@ import xyz.zerovoid.pan.vo.User;
  * @author zerovoid
  */
 public class FileManager {
+    private static final Logger logger = 
+        LoggerFactory.getLogger(FileManager.class);
 
+    private UserDao userDao = null; 
     private FileManagement fileDao = null;
     private Folder folder = null;
     private String rootPath;
     private static final String salt = "JamesHpZeroVoid";
 
     public FileManager () throws SQLException, IOException {
+        this.userDao = DAOFactory.getUserDAO();
         this.fileDao = DAOFactory.getFileDAO();
         folder = new Folder("/");
         rootPath = AppPreferences.getInstance().getRootPath();
     }
 
-    public JSONObject getFileInfo() {
+    public JSONObject getFileInfo() throws SQLException {
         ArrayList<File> list = folder.getFileList();
         JSONObject json = new JSONObject();
         ArrayList<JSONObject> info = new ArrayList<JSONObject>();
@@ -59,8 +66,17 @@ public class FileManager {
                 .put("imgsrc", "img/" + f.getKind() + ".png")
                 .put("filename", f.getName())
                 .put("size", f.getSize())
-                .put("data", f.getUpload_time())
-                .put("uploaduser", f.getUploader_UID());
+                .put("date", f.getUpload_time());
+            logger.info("get name");
+            logger.info(f.getDir());
+            logger.info(f.getName());
+            int hash = Paths.get(f.getDir(), f.getName()).hashCode();
+            String strhash = Integer.toString(hash);
+            List<File> templist = fileDao.mult_search_file(f.getName(), "", "", "");
+            if (!templist.isEmpty()) {
+                User user = userDao.findUser(templist.get(0).getUploader_UID());
+                singleinfo.put("uploaduser", user.getUsername());
+            }
             info.add(singleinfo);
         }
         json.put("fileinfo", info);
@@ -96,7 +112,6 @@ public class FileManager {
             file.setUploader_UID((int)session.getAttribute("uid"));
         }
         if (file.getDir().equals("")) {
-            file.setDir("/");
         }
 
 		request.setCharacterEncoding("utf-8");
@@ -142,6 +157,9 @@ public class FileManager {
         } catch (FileUploadException e) {
             e.printStackTrace();
 		}
+        logger.info("upload name");
+        logger.info(file.getDir());
+        logger.info(file.getName());
         file.setHash(Paths.get(file.getDir(), file.getName()).hashCode());
 
         fileDao.add_file(file);

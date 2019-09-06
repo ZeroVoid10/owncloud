@@ -69,7 +69,7 @@ public class SystemManager {
             throw e;
 		}
         infoMap.put("group", new String[]{"root"});
-        infoMap.put("name", new String[]{"root"});
+        infoMap.put("username", new String[]{"root"});
         try {
 			userManager.register(infoMap);
 		} catch (SQLException e) {
