@@ -61,11 +61,37 @@ public class IndexServlet extends HttpServlet {
             if (map.get("request")[0].equals("fileinfo")) {
                 logger.info("get file list");
                 printer.print(getFileInfo(request, response));
-            } 
+            } else if (map.get("request")[0].equals("orderfilename")) {
+                logger.info("order file by name");
+                if (map.get("order")[0].equals("up")) {
+                    printer.print(orderFile(request, response, 1));
+                } else {
+                    printer.print(orderFile(request, response, 0));
+                }
+            }
         }
         printer.flush();
         printer.close();
 	}
+
+    private String orderFile(HttpServletRequest request, HttpServletResponse response, int type) {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        JSONObject json = new JSONObject();
+	    FileManager fileManager = null;
+
+        try {
+            fileManager = new FileManager();
+            json = fileManager.orderFile("filename", type);
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+            logger.error("file manager failed");
+		}
+
+
+        return json.toString();
+
+    }
 
     private String doUpload(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("application/json");

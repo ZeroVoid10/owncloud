@@ -10,12 +10,12 @@ $(document).ready(function() {
                 data: $(this).serialize(),
                 success: function(res) {
                     $('#error-msg').empty();
-                    if (res.login == 0) {
+                    if (res.register == 0) {
                         window.location.href = "login";
-                    } else if (res.login == 1) {
-                        $('#error-msg').append("<li class='item'>用户名或密码错误</li>");
-                    } else if (res.login == 2) {
-                        $('#error-msg').append("<li class='item'>" + "邮箱未注册" + "</li>")
+                    } else if (res.register == 1) {
+                        $('#error-msg').append("<li class='item'>注册失败</li>");
+                    } else if (res.register == 2) {
+                        $('#error-msg').append("<li class='item'>" + "邮箱已注册" + "</li>")
                     }
                 },
                 error: function() {

@@ -29,7 +29,7 @@
                         <input type="text" name="username" placeholder="用户名">
                     </div><br>
                     <div class="input-field" id="register">
-                        <input type="email" name="email" placeholder="电子邮箱">
+                        <input type="email" name="mail" placeholder="电子邮箱">
                     </div><br>
                     <div class="input-field" id="register">
                         <input type="password" name="password" placeholder="密码">

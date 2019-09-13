@@ -1,6 +1,7 @@
 package xyz.zerovoid.pan.admin;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,8 @@ public class UserManager {
 
     //FIXME: 重复注册问题
     public boolean register(Map<String, String[]> map) throws SQLException {
-        User user = new User(map);
+    	HashMap<String, String[]> newMap = new HashMap<String, String[]>(map);
+        User user = new User(newMap);
         return userDao.doInsert(user);
     }
 

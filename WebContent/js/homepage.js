@@ -13,6 +13,25 @@ $(document).ready(function() {
     checkAddUserForm();
 });
 
+function checkFileOrder() {
+    //$('#orderfile').click(function(e) {
+        //e.preventDefault();
+        alert('click');
+        console.log("click");
+        $.ajax({
+            type: 'POST',
+            url: 'IndexServlet',
+            data: "request=orderfilename&order=up",
+            success: function(res) {
+                showfileinfo(res);
+            },
+            error: function(res) {
+                alert('no');
+            }
+        });
+    //});
+}
+
 function getfileinfo() {
     $.ajax({
         type: 'GET',

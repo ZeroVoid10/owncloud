@@ -66,6 +66,7 @@ public class FileManager {
                 .put("imgsrc", "img/" + f.getKind() + ".png")
                 .put("filename", f.getName())
                 .put("size", f.getSize())
+                .put("a", f.getDir())
                 .put("date", f.getUpload_time());
             logger.info("get name");
             logger.info(f.getDir());
@@ -76,6 +77,40 @@ public class FileManager {
             if (!templist.isEmpty()) {
                 User user = userDao.findUser(templist.get(0).getUploader_UID());
                 singleinfo.put("uploaduser", user.getUsername());
+            } else {
+                singleinfo.put("uploaduser", "system");
+            }
+            info.add(singleinfo);
+        }
+        json.put("fileinfo", info);
+        return json;
+    }
+
+    public JSONObject orderFile(String method, int sc) throws SQLException {
+        List<File> list = null;
+        if (method.equals("filename")) {
+            list = fileDao.order_by("name", sc>0);
+        }
+        JSONObject json = new JSONObject();
+        ArrayList<JSONObject> info = new ArrayList<JSONObject>();
+        for(File f : list) {
+            JSONObject singleinfo = new JSONObject();
+            singleinfo.put("fileinfoid", Paths.get(rootPath, f.getDir()+f.getName()+salt).hashCode());
+            singleinfo.put("dir", f.getDir())
+                .put("imgsrc", "img/" + f.getKind() + ".png")
+                .put("filename", f.getName())
+                .put("size", f.getSize())
+                .put("a", f.getDir())
+                .put("date", f.getUpload_time());
+            logger.info("get name");
+            logger.info(f.getDir());
+            logger.info(f.getName());
+            List<File> templist = fileDao.mult_search_file(f.getName(), "", "", "");
+            if (!templist.isEmpty()) {
+                User user = userDao.findUser(templist.get(0).getUploader_UID());
+                singleinfo.put("uploaduser", user.getUsername());
+            } else {
+                singleinfo.put("uploaduser", "system");
             }
             info.add(singleinfo);
         }

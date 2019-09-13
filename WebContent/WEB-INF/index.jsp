@@ -289,7 +289,7 @@
                                     <i class="fas fa-download"></i>
                                     下载文件</span></span></a>
                         <!-- 更多 -->
-                        <a class="g-button" title="更多" onclick="getmore()">
+                        <a class="g-button" title="更多" onclick="checkFileOrder()">
                             <span class="g-button-right">
                                 <span class="text" style="width: auto;">
                                     <i class="fas fa-ellipsis-v"></i>
@@ -356,7 +356,7 @@
                                 </div>
                             <div class="file-name" style="width:50%">
                                 <div class="text">
-                                    <a href="$filenamea$"
+                                    <a href="$a$"
                                         title="$filenametitle$">$filename$</a></div>
                             </div>
                             <div class="file-size" style="width:16%">$size$</div>

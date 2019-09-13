@@ -225,7 +225,7 @@ import = "java.util.*" %>
                                                 <div class="filelist" style="height: auto;">
                                                     <% 
                                                     fileGet flg = new fileGet();
-                                                    flg.setprojectPath("C:\\Users\\HP\\Desktop\\"+projectname);
+                                                    flg.setprojectPath("/home/zerovoid/Workspace");
                                                     flg.getFileName();
                                                     List<String>nl = flg.getNameList();
                                                     List<String>sl = flg.getSizeList();
